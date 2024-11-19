@@ -1,0 +1,158 @@
+.cart {
+  background: linear-gradient(
+    180deg,
+    #121212 25%,
+    #1a1a1a 25%,
+    #1a1a1a 50%,
+    #121212 50%,
+    #121212 75%,
+    #1a1a1a 75%,
+    #1a1a1a
+  );
+  background-size: 40px 40px;
+
+  animation: move 4s linear infinite;
+
+  display: none;
+  padding: 32px;
+  position: fixed;
+  right: 0px;
+  top: 0px;
+  width: 200px;
+  color: #f3f3f3;
+  overflow: auto;
+
+  scrollbar-width: 150px;
+  scrollbar-color: rgb(255, 208, 0) #0002;
+
+  z-index: 1;
+  text-align: center;
+}
+
+.cart img {
+  aspect-ratio: 1/1;
+  width: 100%;
+}
+
+.cart li {
+  border-bottom: 1px solid #444;
+  padding-bottom: 16px;
+  list-style: none;
+}
+
+.cart .foooter {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart .foooter .addtocart {
+  padding: 8px;
+}
+
+.addtocart {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s ease-in-out;
+  color: #f3f3f3;
+
+  &:hover {
+    box-shadow: 0px 0px 57px 0px rgba(45, 255, 196, 1);
+    transition: 0.3s ease-in-out;
+  }
+  &:is(:focus, :focus-visible) {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+}
+
+.cart-button {
+  /* translate: 1rem -4.3rem; */
+
+  align-self: center;
+  align-items: center;
+  background: linear-gradient(145deg, #2f89c5, #38a3ea);
+  box-shadow: 20px 20px 60px #2c81ba, -20px -20px 60px #3caffc;
+
+  border-radius: 9999px;
+  cursor: pointer;
+  display: flex;
+  height: 32px;
+  justify-content: center;
+  padding: 4px;
+  position: sticky;
+
+  transition: all 0.3s ease;
+  width: 120px;
+  z-index: 9999;
+}
+
+.cart-button:hover {
+  scale: 1.1;
+}
+
+.cart-button ~ input:checked ~ .cart {
+  height: 100%;
+  display: block;
+}
+
+.cart-need {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+
+  font-size: 1.2em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s ease-in-out;
+  color: #f3f3f3;
+
+  &:hover {
+    box-shadow: 0px 0px 57px 0px rgba(45, 255, 196, 1);
+    transition: 0.3s ease-in-out;
+  }
+  &:is(:focus, :focus-visible) {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+}
+
+.cart-needed {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  margin: 0 0 0 20px;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s ease-in-out;
+  color: #f3f3f3;
+  margin: 20px 0 20px 0px;
+  text-align: center;
+
+  &:hover {
+    box-shadow: 0px 0px 57px 0px rgba(45, 255, 196, 1);
+    transition: 0.3s ease-in-out;
+  }
+  &:is(:focus, :focus-visible) {
+    outline: 4px auto -webkit-focus-ring-color;
+  }
+}
+
+@keyframes move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 40px 40px;
+  }
+}

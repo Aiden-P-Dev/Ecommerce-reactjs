@@ -1,0 +1,48 @@
+.footer {
+  width: 100%;
+  height: auto;
+
+  --color: rgba(114, 114, 114, 0.3);
+  background-color: #191a1a;
+  background-image: linear-gradient(
+      0deg,
+      transparent 24%,
+      var(--color) 25%,
+      var(--color) 26%,
+      transparent 27%,
+      transparent 74%,
+      var(--color) 75%,
+      var(--color) 76%,
+      transparent 77%,
+      transparent
+    ),
+    linear-gradient(
+      90deg,
+      transparent 24%,
+      var(--color) 25%,
+      var(--color) 26%,
+      transparent 27%,
+      transparent 74%,
+      var(--color) 75%,
+      var(--color) 76%,
+      transparent 77%,
+      transparent
+    );
+  background-size: 55px 55px;
+  padding: 3rem 2rem;
+  display: flex;
+  align-items: end;
+}
+
+.footer a {
+  font-size: 25px;
+
+  color: #09f;
+  opacity: 0.8;
+}
+
+.footer h4,
+.footer h5 {
+  margin: 0;
+  display: flex;
+}
