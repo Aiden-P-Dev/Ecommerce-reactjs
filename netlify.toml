@@ -1,10 +1,6 @@
-[
-build
-]
+[build]
   base = "frontend"
   command = "npm install && npm run build"
   publish = "frontend/build"
 
-[
-build.environment
-]
+[build.environment]
