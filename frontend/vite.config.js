@@ -6,6 +6,6 @@ export default defineConfig({
   // server: 3000,
   plugins: [react()],
   build: {
-    outDir: "build", // Cambia esto si deseas que la salida se genere en un directorio específico
+    outDir: "dist", // Cambia esto si deseas que la salida se genere en un directorio específico
   },
 });
