@@ -1,0 +1,13 @@
+{
+  "name": "programa_principalv9-este-es-para-subirlo-aunque-sea-server-local",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
