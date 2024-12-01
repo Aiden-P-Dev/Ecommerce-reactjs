@@ -2,16 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 // import "./Main.css";
 
+import imagen1 from "src/Components/Img/Open Peeps - Avatar.png";
+
 export const Menuprincipal = () => {
   return (
     <div className="el-caribeno">
       <div>
         <div className="HEADER-content">
           <div className="logo">
-            <img
-              src="src/Components/Img/Open Peeps - Avatar.png"
-              alt="Logo de El Caribeño"
-            />
+            <img src={imagen1} alt="Logo de El Caribeño" />
 
             <h1>El Caribeño</h1>
           </div>
