@@ -149,17 +149,17 @@ li a {
   /* mask-image: radial-gradient(#ffff, #3f4 60%); */
 }
 .slide:nth-child(1) {
-  background-image: url("img/llendo.png");
+  background-image: url("Img/llendo.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
 .slide:nth-child(2) {
-  background-image: url("img/pc.png");
+  background-image: url("Img/pc.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
 .slide:nth-child(3) {
-  background-image: url("img/tlf.png");
+  background-image: url("Img/tlf.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
