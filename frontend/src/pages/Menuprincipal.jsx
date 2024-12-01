@@ -2,7 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 // import "./Main.css";
 
-import imagen1 from "src/Components/Img/Open Peeps - Avatar.png";
+// import imagen1 from "./Components/Img/Open Peeps - Avatar.png";
+import imagen1 from "./Img/Avatar.png";
 
 export const Menuprincipal = () => {
   return (
