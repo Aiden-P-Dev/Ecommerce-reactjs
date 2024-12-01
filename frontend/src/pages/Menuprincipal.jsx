@@ -61,10 +61,7 @@ export const Menuprincipal = () => {
         <section id="about" className="about">
           <div className="container about-content">
             <div className="about-image">
-              <img
-                src="/src/Components/Img/Open Peeps - Avatar.png"
-                alt="Sobre nosotros"
-              />
+              <img src={imagen1} alt="Sobre nosotros" />
             </div>
             <div className="about-text">
               <h2>Acerca de</h2>
