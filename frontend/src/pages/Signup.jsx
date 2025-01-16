@@ -1,45 +1,74 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import "../Components/Signup.css";
-import { Link, useNavigate } from "react-router-dom";
-import Validation from "../hoocks/Signupvalidate";
-import axios from "axios";
+// import { Link, useNavigate } from "react-router-dom";
+// import Validation from "../hoocks/Signupvalidate";
+// import axios from "axios";
+
+import { useForm } from "react-hook-form";
+import { registerRequest } from "../api/auth.js";
+import { useAuth } from "../context/AuthContext.jsx";
+import { useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 export const Signup = () => {
-  const [values, setValues] = useState({
-    name: "",
-    email: "",
-    password: "",
-  });
+  // const [values, setValues] = useState({
+  //   name: "",
+  //   email: "",
+  //   password: "",
+  // });
+
+  // const navigate = useNavigate();
+  // const [errors, setErrors] = useState({});
+
+  // const handleInput = (event) => {
+  //   setValues((prev) => ({
+  //     ...prev,
+  //     [event.target.name]: event.target.value,
+  //   }));
+  // };
+
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   const validationErrors = Validation(values);
+  //   setErrors(validationErrors);
+  //   if (Object.values(validationErrors).every((x) => x === "")) {
+  //     axios
+  //       .post("http://localhost:8081/signup", values)
+  //       .then((res) => {
+  //         navigate("/");
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const { signup, isAuthenticated, errors: registerErrors } = useAuth();
 
   const navigate = useNavigate();
-  const [errors, setErrors] = useState({});
 
-  const handleInput = (event) => {
-    setValues((prev) => ({
-      ...prev,
-      [event.target.name]: event.target.value,
-    }));
-  };
+  useEffect(() => {
+    if (isAuthenticated) navigate("/products");
+  }, [isAuthenticated]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const validationErrors = Validation(values);
-    setErrors(validationErrors);
-    if (Object.values(validationErrors).every((x) => x === "")) {
-      axios
-        .post("http://localhost:8081/signup", values)
-        .then((res) => {
-          navigate("/");
-        })
-        .catch((err) => console.log(err));
-    }
-  };
+  const onSubmit = handleSubmit(async (values) => {
+    signup(values);
+  });
 
   return (
     <div className="signup-container">
       <h1 className="signup-title">Sign Up</h1>
       <div className="">
-        <form action="" className="form" onSubmit={handleSubmit}>
+        {registerErrors.map((error, i) => (
+          <div className="bg-red-500 p-2 text-white" key={i}>
+            {error}
+          </div>
+        ))}
+        <form action="" className="form" onSubmit={onSubmit}>
           <div className="input-container">
             <label className="label" htmlFor="name">
               Nombre
@@ -49,9 +78,13 @@ export const Signup = () => {
               id="name"
               name="name"
               placeholder="Nombre"
-              onChange={handleInput}
+              {...register("username", { required: true })}
+              className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md m-3"
             />
-            {errors.name && <span className="text-danger">{errors.name}</span>}
+
+            {errors.username && (
+              <p className="text-danger">es requerido un nombre de usuario</p>
+            )}
           </div>
           <div className="input-container">
             <label className="label" htmlFor="email">
@@ -61,11 +94,12 @@ export const Signup = () => {
               type="email"
               id="email"
               name="email"
-              placeholder="Email"
-              onChange={handleInput}
+              {...register("email", { required: true })}
+              className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md m-3"
+              placeholder="email"
             />
             {errors.email && (
-              <span className="text-danger">{errors.email}</span>
+              <p className="text-danger">es requerido un correo electronico</p>
             )}
           </div>
           <div className="input-container">
@@ -76,17 +110,18 @@ export const Signup = () => {
               type="password"
               id="password"
               name="password"
-              placeholder="contraseña"
-              onChange={handleInput}
+              {...register("password", { required: true })}
+              className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md m-3"
+              placeholder="password"
             />
             {errors.password && (
-              <span className="text-danger">{errors.password}</span>
+              <p className="text-danger">La contraseña es invalida</p>
             )}
           </div>
           <button type="submit" className="submit">
             Sign Up
           </button>
-          <Link to="/" className="submit">
+          <Link to="/login" className="submit">
             Log In
           </Link>
         </form>
