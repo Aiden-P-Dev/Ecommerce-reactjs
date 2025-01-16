@@ -1,10 +1,9 @@
 import mongoose from "mongoose";
+import { MONGODB_URI } from "./config.js";
 
 export const conectDB = async () => {
   try {
-    await mongoose.connect(
-      "mongodb+srv://aidenpdeveloper:kF8so8iBifTbNecI@cluster.rqppn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster"
-    );
+    await mongoose.connect(MONGODB_URI);
     console.log("esta conectado a la base de datos");
   } catch (error) {
     console.log(error);
