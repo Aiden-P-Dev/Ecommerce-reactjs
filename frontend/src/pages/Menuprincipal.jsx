@@ -34,7 +34,7 @@ export const Menuprincipal = () => {
               </li>
               <li>
                 <Link to="signup" className="btn">
-                  Registrarce
+                  Registrarse
                 </Link>
               </li>
             </ul>

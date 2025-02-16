@@ -46,6 +46,14 @@
   }
 }
 
+.products h2 {
+  color: #000;
+
+  &[price="."] {
+    color: #2c2;
+  }
+}
+
 .products h3 {
   margin: 0;
 }

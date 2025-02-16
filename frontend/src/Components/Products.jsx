@@ -12,13 +12,14 @@ export function Products({ products }) {
   return (
     <main className="products">
       <ul>
-        {products.slice(0, 15).map((product) => {
+        {products.slice(0, 100).map((product) => {
           const isProductInCart = checkProductInCart(product);
           return (
-            <li key={product.id}>
+            <li key={product.id} tipo={product.category}>
               <img src={product.thumbnail} alt={product.title} />
               <div>
-                <strong>{product.title}</strong> <h2>${product.price}</h2>
+                <strong>{product.title}</strong>{" "}
+                <h2 price={product.price}>{product.price}</h2>
               </div>
               <div>
                 <button

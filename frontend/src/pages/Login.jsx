@@ -86,7 +86,7 @@ export const Login = () => {
               placeholder="email"
             />
             {errors.email && (
-              <p className="text-red-500">es requerido un correo electronico</p>
+              <p className="text-red-500">es requerido un correo electrónico</p>
             )}
           </div>
           <div className="input-container">

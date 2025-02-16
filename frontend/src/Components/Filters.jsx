@@ -36,19 +36,21 @@ export function Filters() {
             id={searchFilterId}
             type="text"
             className="input__search"
-            placeholder="QUE NECESITÁS"
+            placeholder="QUE NECESITAS"
             value={filters.searchTerm}
             onChange={handleSearch}
           />
         </div>
       </div>
       <div>
-        <label htmlFor={categoryFilterId}>Categorias</label>
+        <label htmlFor={categoryFilterId}>Categorías</label>
         <select id={categoryFilterId} onChange={handleChangeCategory}>
           <option value="all">Todo</option>
-          <option value="laptops">Portatiles</option>
-          <option value="smartphones">Celulares</option>
-          <option value="fragrances">Perfumes</option>
+          <option value="alimento">Alimentos</option>
+          <option value="condimento">Condimentos</option>
+          <option value="higiene">Higiene</option>
+          <option value="alcohol">Bebidas</option>
+          <option value="charcuteria">Charcuteria</option>
         </select>
       </div>
     </section>

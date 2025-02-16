@@ -99,7 +99,7 @@ export const Signup = () => {
               placeholder="email"
             />
             {errors.email && (
-              <p className="text-danger">es requerido un correo electronico</p>
+              <p className="text-danger">es requerido un correo Electrónico</p>
             )}
           </div>
           <div className="input-container">
