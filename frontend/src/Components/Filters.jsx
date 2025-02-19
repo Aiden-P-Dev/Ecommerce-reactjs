@@ -27,7 +27,7 @@ export function Filters() {
 
   return (
     <section className="filters">
-      <div>
+      <div className="cart_div">
         <Cart />
       </div>
       <div className="input__container">
@@ -42,7 +42,7 @@ export function Filters() {
           />
         </div>
       </div>
-      <div>
+      <div className="filter_div">
         <label htmlFor={categoryFilterId}>Categorías</label>
         <select id={categoryFilterId} onChange={handleChangeCategory}>
           <option value="all">Todo</option>

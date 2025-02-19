@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap");
+
 .products {
   width: 100%;
   display: flex;
@@ -44,13 +46,186 @@
     transform: translate(-5px, -5px);
     box-shadow: 17px 17px 0 #000;
   }
+
+  /* alimento , condimento , higiene , alcohol ,charcuteria */
+
+  &[tipo="alimento"] {
+    background-color: white;
+    background-image: linear-gradient(
+        90deg,
+        rgba(200, 0, 0, 0.5) 50%,
+        transparent 50%
+      ),
+      linear-gradient(rgba(200, 0, 0, 0.5) 50%, transparent 50%);
+    background-size: 50px 50px;
+
+    & strong {
+      background: #fefefe33;
+      backdrop-filter: blur(15px);
+      font-size: clamp(20px, 23px, 25px);
+    }
+  }
+
+  &[tipo="condimento"] {
+    --s: 160px;
+    --c1: #d70f0f;
+    --c2: #fffceb;
+
+    --_g: var(--s) var(--s)
+      radial-gradient(var(--c1) 17%, var(--c2) 18% 35%, #0000 36.5%);
+    background: calc(var(--s) / -4) calc(var(--s) / -4) / var(--_g),
+      calc(var(--s) / 4) calc(var(--s) / 4) / var(--_g),
+      radial-gradient(var(--c2) 34%, var(--c1) 36% 68%, #0000 70%) 0 0 /
+        calc(var(--s) / 2) calc(var(--s) / 2),
+      repeating-linear-gradient(
+          45deg,
+          var(--c1) -12.5% 12.5%,
+          var(--c2) 0 37.5%
+        )
+        0 0 / var(--s) var(--s);
+
+    & strong {
+      background-color: #fefefe88;
+      backdrop-filter: blur(5px);
+      color: #222;
+
+      font-size: clamp(20px, 23px, 25px);
+    }
+
+    & h2 {
+      display: inline;
+      background: #fefefe;
+      border: solid #000 2px;
+
+      padding: 7px;
+    }
+  }
+
+  &[tipo="higiene"] {
+    --s: 82px; /* control the size*/
+    --c1: #b2b2b2;
+    --c2: #ffffff;
+    --c3: #d9d9d9;
+
+    --_g: var(--c3) 0 120deg, #0000 0;
+    background: conic-gradient(from -60deg at 50% calc(100% / 3), var(--_g)),
+      conic-gradient(from 120deg at 50% calc(200% / 3), var(--_g)),
+      conic-gradient(
+        from 60deg at calc(200% / 3),
+        var(--c3) 60deg,
+        var(--c2) 0 120deg,
+        #0000 0
+      ),
+      conic-gradient(from 180deg at calc(100% / 3), var(--c1) 60deg, var(--_g)),
+      linear-gradient(
+        90deg,
+        var(--c1) calc(100% / 6),
+        var(--c2) 0 50%,
+        var(--c1) 0 calc(500% / 6),
+        var(--c2) 0
+      );
+    background-size: calc(1.732 * var(--s)) var(--s);
+    & img {
+      box-shadow: 0 0 15px #000;
+    }
+
+    & strong {
+      border-radius: 25px;
+      background: #e0e0e0;
+      box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+    }
+  }
+
+  &[tipo="alcohol"] {
+    background: radial-gradient(
+          hsl(0, 100%, 27%) 4%,
+          hsl(0, 100%, 18%) 9%,
+          hsla(0, 100%, 20%, 0) 9%
+        )
+        0 0,
+      radial-gradient(
+          hsl(0, 100%, 27%) 4%,
+          hsl(0, 100%, 18%) 8%,
+          hsla(0, 100%, 20%, 0) 10%
+        )
+        50px 50px,
+      radial-gradient(hsla(0, 100%, 30%, 0.8) 20%, hsla(0, 100%, 20%, 0)) 50px 0,
+      radial-gradient(hsla(0, 100%, 30%, 0.8) 20%, hsla(0, 100%, 20%, 0)) 0 50px,
+      radial-gradient(hsla(0, 100%, 20%, 1) 35%, hsla(0, 100%, 20%, 0) 60%) 50px
+        0,
+      radial-gradient(hsla(0, 100%, 20%, 1) 35%, hsla(0, 100%, 20%, 0) 60%)
+        100px 50px,
+      radial-gradient(hsla(0, 100%, 15%, 0.7), hsla(0, 100%, 20%, 0)) 0 0,
+      radial-gradient(hsla(0, 100%, 15%, 0.7), hsla(0, 100%, 20%, 0)) 50px 50px,
+      linear-gradient(
+          45deg,
+          hsla(0, 100%, 20%, 0) 49%,
+          hsla(0, 100%, 0%, 1) 50%,
+          hsla(0, 100%, 20%, 0) 70%
+        )
+        0 0,
+      linear-gradient(
+          -45deg,
+          hsla(0, 100%, 20%, 0) 49%,
+          hsla(0, 100%, 0%, 1) 50%,
+          hsla(0, 100%, 20%, 0) 70%
+        )
+        0 0;
+    background-color: #300;
+    background-size: 100px 100px;
+
+    & strong {
+      background-color: #232323;
+      color: #cacaca;
+      border: solid #83830b 2px;
+      font-size: clamp(20px, 23px, 25px);
+      font-family: "Teko", serif;
+      font-weight: bolder;
+    }
+
+    & h2 {
+      display: inline;
+      background: #222;
+      border: solid #83830b 2px;
+
+      padding: 7px;
+    }
+  }
+
+  &[tipo="charcuteria"] {
+    --s: 100px;
+    --c1: #cc2a41;
+    --c2: #351330;
+
+    --_g: #0000 24%, var(--c2) 26% 34%, var(--c1) 36% 44%, var(--c2) 46% 54%,
+      var(--c1) 56% 64%, var(--c2) 66% 74%, #0000 76%;
+    background: radial-gradient(100% 100% at 100% 0, var(--_g)),
+      radial-gradient(100% 100% at 0 100%, var(--_g)),
+      radial-gradient(var(--c2) 14%, var(--c1) 16%) calc(var(--s) / 2)
+        calc(var(--s) / 2);
+    background-size: var(--s) var(--s);
+
+    & strong {
+      background-color: #23232388;
+      color: #fefefe;
+      font-size: clamp(20px, 23px, 25px);
+      backdrop-filter: blur(5px);
+    }
+
+    & h2 {
+      color: #fefefe;
+      display: inline;
+      background-color: #23232388;
+      padding: 7px;
+    }
+  }
 }
 
 .products h2 {
   color: #000;
 
-  &[price="."] {
-    color: #2c2;
+  &[price*="."] {
+    color: #127512;
   }
 }
 
