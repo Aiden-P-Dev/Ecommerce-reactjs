@@ -108,7 +108,7 @@ export const Menuprincipal = () => {
 
       <footer className="footer-bottom">
         <div>
-          <p>&copy; 2023 El Caribeño. Todos los derechos reservados.</p>
+          <p>&copy; 2025 El Caribeño. Todos los derechos reservados.</p>
         </div>
       </footer>
     </div>
