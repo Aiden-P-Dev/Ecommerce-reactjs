@@ -1,4 +1,4 @@
 {
-  "source": "/(.frontend)",
+  "source": "/(./frontend)",
   "destination": "/"
 }
