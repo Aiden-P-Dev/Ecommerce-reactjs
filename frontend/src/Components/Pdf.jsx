@@ -106,7 +106,7 @@ const CartItem = ({ thumbnail, price, title, quantity }) => (
       <Image src={thumbnail} style={style.productos.img} />
       <View style={style.productos.div}>
         <Text style={style.productos.strong}>{title}</Text>
-        <Text>{price}</Text>
+        <Text>${price}</Text>
         <Text style={style.productos.footer}>Qty: {quantity}</Text>
       </View>
     </View>
@@ -123,13 +123,13 @@ const Pdf = ({ cart = [] }) => (
         </View>
       </View>
       <View>
-        {cart.map((products) => (
+        {cart.map((product) => (
           <CartItem
-            key={products.id}
-            thumbnail={products.thumbnail}
-            price={products.price}
-            title={products.title}
-            quantity={products.quantity}
+            key={product.id}
+            thumbnail={product.thumbnail}
+            price={product.price}
+            title={product.title}
+            quantity={product.quantity}
           />
         ))}
       </View>

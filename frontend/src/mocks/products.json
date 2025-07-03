@@ -409,7 +409,7 @@
       "thumbnail": "https://assets.tuzonamarket.com/images/producto/V4FmDsM3dq.jpg"
     },
     {
-      "id": 52,
+      "id": 51,
       "title": "Vino Lágrima De Uva 1,5L",
       "description": "Vino Lágrima De Uva 1,5L",
       "price": 5.2,
@@ -417,7 +417,7 @@
       "thumbnail": "https://phygital-files.mercafacil.com/cotrisel/uploads/produto/vinho_lagrima_de_uva_t_suave_1_5lc6_80428a0f-061e-4e5c-bb89-c11265f071a3.jpg"
     },
     {
-      "id": 53,
+      "id": 52,
       "title": "Vin Tinto Suave La Viña",
       "description": "Vin Tinto Suave La Viña 0.75LT",
       "price": 5.75,
@@ -425,7 +425,7 @@
       "thumbnail": "https://mibodega.com.ve/wp-content/uploads/2021/12/7896209602601.png"
     },
     {
-      "id": 54,
+      "id": 53,
       "title": "Sangria Mal Portada 1,75L",
       "description": "Sangria Mal Portada 1,75L",
       "price": 5.0,
@@ -433,7 +433,7 @@
       "thumbnail": "https://despensallena.com/wp-content/uploads/2023/05/mportada-1200x1200.png"
     },
     {
-      "id": 55,
+      "id": 54,
       "title": "Blend Seven 1L",
       "description": "Blend Seven 1L",
       "price": 7.24,
@@ -441,7 +441,7 @@
       "thumbnail": "https://phygital-files.mercafacil.com/cotrisel/uploads/produto/aperitivo_blend_seven_1l_c012_e500429a-66fc-49b4-9a0b-1f2134c4f982.png"
     },
     {
-      "id": 56,
+      "id": 55,
       "title": "Anís Cartujo 1L",
       "description": "Anís Cartujo 1L",
       "price": 5.8,
@@ -449,7 +449,7 @@
       "thumbnail": "https://bodegonbeplus.com/wp-content/uploads/2024/02/licor-dulce-anis-cartujo-1j-600x600.jpeg"
     },
     {
-      "id": 57,
+      "id": 56,
       "title": "Anis El Moro",
       "description": "Anis El Moro",
       "price": 5.0,
@@ -457,7 +457,7 @@
       "thumbnail": "https://www.prolicor.com.ve/wp-content/uploads/2018/06/El_Moro.jpg"
     },
     {
-      "id": 58,
+      "id": 57,
       "title": "Black Label Johnnie Walker ",
       "description": "Black Label Johnnie Walker Whisky Escoces 12 Años",
       "price": 36.5,
@@ -465,7 +465,7 @@
       "thumbnail": "https://assets.tuzonamarket.com/images/producto/gujfG3IPs2.jpg"
     },
     {
-      "id": 59,
+      "id": 58,
       "title": "Ron Cacique",
       "description": "Ron Cacique 0.75L",
       "price": 22.58,
@@ -473,7 +473,7 @@
       "thumbnail": "https://assets.tuzonamarket.com/images/producto/7T8dLvTZXO.jpg"
     },
     {
-      "id": 60,
+      "id": 59,
       "title": "El Gaitero Clásica",
       "description": "El Gaitero Clásica",
       "price": 8.23,
@@ -481,7 +481,7 @@
       "thumbnail": "https://www.sidraelgaitero.com//resources/el-gaitero-1000x1000-px-300ppp.png"
     },
     {
-      "id": 61,
+      "id": 60,
       "title": "Ponche Crema Eleodoro Gonzalez",
       "description": "Ponche Crema Eleodoro Gonzalez 0.75L",
       "price": 17.85,
@@ -489,7 +489,7 @@
       "thumbnail": "https://bodegonbeplus.com/wp-content/uploads/2023/09/Poche-crema_.jpg"
     },
     {
-      "id": 62,
+      "id": 61,
       "title": "Cóctel Sunrise Leal",
       "description": "Cóctel Sunrise Leal 0.70L",
       "price": 4.2,
@@ -497,15 +497,15 @@
       "thumbnail": "https://mibodega.com.ve/wp-content/uploads/2021/12/7594003623296-PhotoRoom-600x600.png"
     },
     {
-      "id": 63,
+      "id": 62,
       "title": "La Vinotinto Cabernet",
-      "description": "La Vinotinto Cabernet",
+      "description": "",
       "price": 8.93,
       "category": "alcohol",
       "thumbnail": "https://www.licoresmundiales.com/media/catalog/product/cache/521bfa0199cf24b54354aeac7a407001/0/0/001-006-666.jpg"
     },
     {
-      "id": 64,
+      "id": 63,
       "title": "Ron Añejo Bodega 1800",
       "description": "Ron Añejo Bodega 1800 0,70l",
       "price": 7.2,
@@ -513,7 +513,7 @@
       "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_616447-MLV45600807920_042021-O.webp"
     },
     {
-      "id": 65,
+      "id": 64,
       "title": "Ron Cacique Añejo",
       "description": "Ron Cacique Añejo 0.75L",
       "price": 10.5,
@@ -521,7 +521,7 @@
       "thumbnail": "https://costazul.sigo.com.ve/images/thumbs/0016825_ron-cacique-anejo-075l.jpeg"
     },
     {
-      "id": 66,
+      "id": 65,
       "title": "Whisky Black & White",
       "description": "Whisky Black & White 0.75L",
       "price": 18.94,
@@ -529,7 +529,7 @@
       "thumbnail": "https://www.sigo.com.ve/images/thumbs/0017080_whisky-black-white-075l.jpeg"
     },
     {
-      "id": 67,
+      "id": 66,
       "title": "Black Label",
       "description": "Black Label 0.75 Lt",
       "price": 36.5,
@@ -538,7 +538,7 @@
     },
 
     {
-      "id": 68,
+      "id": 67,
       "title": "Buchanan's Deluxe",
       "description": "Buchanan's Deluxe 12 años",
       "price": 35.45,
@@ -546,7 +546,7 @@
       "thumbnail": "https://www.licoresmundiales.com/media/catalog/product/cache/521bfa0199cf24b54354aeac7a407001/0/0/001-001-118_1.jpg"
     },
     {
-      "id": 69,
+      "id": 68,
       "title": "Hankey Bannister",
       "description": "Hankey Bannister Escocia0.70 Lt",
       "price": 14.28,
@@ -554,7 +554,7 @@
       "thumbnail": "https://www.licoresmundiales.com/media/catalog/product/cache/521bfa0199cf24b54354aeac7a407001/0/0/001-001-337.jpg"
     },
     {
-      "id": 70,
+      "id": 69,
       "title": "Vino de Manzana La Española",
       "description": "Vino Espumante de Manzana La Española 0.75L",
       "price": 13.2,
@@ -562,7 +562,7 @@
       "thumbnail": "https://assets.tuzonamarket.com/images/producto/zp9zNYKCU7.jpg"
     },
     {
-      "id": 71,
+      "id": 70,
       "title": "Gordons Vodka",
       "description": "Gordons Vodka 0.70L",
       "price": 10.5,
@@ -570,7 +570,7 @@
       "thumbnail": "https://assets.tuzonamarket.com/images/producto/kaF0FeSEiA.jpg"
     },
     {
-      "id": 72,
+      "id": 71,
       "title": "Pollo Entero San Blas",
       "description": "Pollo Entero San Blas",
       "price": 170,
@@ -578,7 +578,7 @@
       "thumbnail": "https://www.purolomo.com/wp-content/uploads/2021/07/pollo-sb-1.jpg"
     },
     {
-      "id": 73,
+      "id": 72,
       "title": "Pollo Entero Purolomo",
       "description": "Pollo Entero Purolomo",
       "price": 180,
@@ -586,7 +586,7 @@
       "thumbnail": "https://www.purolomo.com/wp-content/uploads/2021/07/pollo-pl-1.jpg"
     },
     {
-      "id": 74,
+      "id": 73,
       "title": "Patas De Pollo 1kg",
       "description": "Patas De Pollo 1kg",
       "price": 138,
@@ -594,7 +594,7 @@
       "thumbnail": "https://www.eladerezo.com/wp-content/uploads/2011/09/patas-de-pollo-1-1400x930.jpg"
     },
     {
-      "id": 75,
+      "id": 74,
       "title": "Alitas de Pollo 1kg",
       "description": "Alitas de Pollo 1kg",
       "price": 216,
@@ -602,7 +602,7 @@
       "thumbnail": "https://delahuertacasa.com/wp-content/uploads/2022/02/alitas-pollo-product-600x397.jpg"
     },
     {
-      "id": 76,
+      "id": 75,
       "title": "Higado de Res 1kg",
       "description": "Higado de Res",
       "price": 105,
@@ -610,7 +610,7 @@
       "thumbnail": "https://supercarniceria.com/cdn/shop/products/higado-de-res-bisteceado-1-kg-r715-952785_1024x1024.jpg?v=1600776272"
     },
     {
-      "id": 77,
+      "id": 76,
       "title": "Bisteck de Res 1kg",
       "description": "Bisteck de Res 1kg",
       "price": 530,
@@ -618,7 +618,7 @@
       "thumbnail": "https://supercarniceria.com/cdn/shop/products/paletaderesbisteceada_1024x1024.jpg?v=1605914268"
     },
     {
-      "id": 78,
+      "id": 77,
       "title": "Carne Molida de Res 1kg",
       "description": "Carne Molida de Res 1kg",
       "price": 580,
@@ -626,7 +626,7 @@
       "thumbnail": "https://supercarniceria.com/cdn/shop/products/carne-molida-de-res-sirloin-1-kg-r706-883299_1024x1024.jpg?v=1600777507"
     },
     {
-      "id": 79,
+      "id": 78,
       "title": "Costilla de ternera 1kg",
       "description": "Costilla de ternera 1kg",
       "price": 245,
@@ -634,7 +634,7 @@
       "thumbnail": "https://meatlovers.com.gt/wp-content/uploads/2022/01/11-costilla.jpg"
     },
     {
-      "id": 80,
+      "id": 79,
       "title": "Hueso Ahumado 1kg",
       "description": "Hueso Ahumado 1kg",
       "price": 7.0,
@@ -642,7 +642,7 @@
       "thumbnail": "https://www.cclataurina.com/wp-content/uploads/2024/05/hueso-ahumado.jpg"
     },
     {
-      "id": 81,
+      "id": 80,
       "title": "Chuleta Ahumada 1kg",
       "description": "chuleta Ahumada 1kg",
       "price": 13.28,
@@ -650,7 +650,7 @@
       "thumbnail": "https://instamarketca.com/wp-content/uploads/CHULETA-AHUMADA-PLUMROSE-500GR-1.jpg.webp"
     },
     {
-      "id": 82,
+      "id": 81,
       "title": "Huevo Unidad",
       "description": "Huevo Unidad",
       "price": 11,
@@ -658,7 +658,7 @@
       "thumbnail": "https://mistiendas.com.co/14645-large_default/huevo-colorado-unidad-extra.jpg"
     },
     {
-      "id": 83,
+      "id": 82,
       "title": "Huevo 1/2 Carton",
       "description": "Huevo 1/2 Carton",
       "price": 160,
@@ -666,7 +666,7 @@
       "thumbnail": "https://mistiendas.com.co/2181-large_default/huevo-avinal-extra-x15und.jpg"
     },
     {
-      "id": 84,
+      "id": 83,
       "title": "Huevo Carton",
       "description": "Huevo Carton",
       "price": 320,
@@ -674,7 +674,7 @@
       "thumbnail": "https://mistiendas.com.co/2308-large_default/huevo-extra-x30.jpg"
     },
     {
-      "id": 85,
+      "id": 84,
       "title": "Detergente en Polvo con Suavizante Alive 1Kg",
       "description": "Detergente en Polvo con Suavizante Alive 1Kg",
       "price": 1.25,
@@ -682,7 +682,7 @@
       "thumbnail": "https://assets.tuzonamarket.com/images/producto/hadwNYU6jr.jpg"
     },
     {
-      "id": 86,
+      "id": 85,
       "title": "Jabon en Polvo Fragancia Citrica Multi Clean 400g",
       "description": "Jabon en Polvo Fragancia Citrica Multi Clean 400g",
       "price": 0.98,
@@ -690,7 +690,7 @@
       "thumbnail": "https://assets.tuzonamarket.com/images/producto/tBSPrjHmAn.jpg"
     },
     {
-      "id": 87,
+      "id": 86,
       "title": "Jabon Multiuso Pastilla Las Llaves 130g",
       "description": "Jabon Multiuso Pastilla Las Llaves 130g",
       "price": 1.0,
@@ -698,7 +698,7 @@
       "thumbnail": "https://assets.tuzonamarket.com/images/producto/ZlmbAQH97s.jpg"
     },
     {
-      "id": 88,
+      "id": 87,
       "title": "Jabon En Barra Anita Aguacate 80Gr",
       "description": "Jabon En Barra Anita Aguacate 80Gr",
       "price": 0.62,
@@ -706,7 +706,7 @@
       "thumbnail": "https://lh3.googleusercontent.com/9s2oMbASm2UWp89_Yr4wKRG4nj8DETTv7VORy-Xw_Dwb8LKVmjkXGwY3qoEeDuaq-G1ZluvoWhSU2QKPpcQ4QMI-AzDp_CVR8w"
     },
     {
-      "id": 89,
+      "id": 88,
       "title": "Lavaplatos Multiuso en Crema Limón Axion 235g",
       "description": "Lavaplatos Multiuso en Crema Limón Axion 235g",
       "price": 1.12,
@@ -714,7 +714,7 @@
       "thumbnail": "https://assets.tuzonamarket.com/images/producto/K4zfc6SdP9.jpg"
     },
     {
-      "id": 90,
+      "id": 89,
       "title": "Jabon Panela Las LLaves Fresca Fragancia 160g",
       "description": "Jabon Panela Las LLaves Fresca Fragancia 160g",
       "price": 0.98,
