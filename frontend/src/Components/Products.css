@@ -18,6 +18,7 @@
 
   width: 70%;
   margin: 45px;
+  content-visibility: auto;
 }
 
 .products li {

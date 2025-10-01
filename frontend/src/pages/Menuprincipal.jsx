@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 // import "./Main.css";
+import "../viewtransition.css";
 
 // import imagen1 from "./Components/Img/Open Peeps - Avatar.png";
 import imagen1 from "./Img/Avatar.png";
@@ -28,12 +29,12 @@ export const Menuprincipal = () => {
               </li>
 
               <li>
-                <Link to="login" className="btn">
+                <Link to="./login" className="btn">
                   Ingresar
                 </Link>
               </li>
               <li>
-                <Link to="signup" className="btn">
+                <Link to="./signup" className="btn">
                   Registrarse
                 </Link>
               </li>

@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import "../viewtransition.css";
 
 export const Login = () => {
   // const [values, setValues] = useState({

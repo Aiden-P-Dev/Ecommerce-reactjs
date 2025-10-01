@@ -5,6 +5,7 @@ import { Header } from "../Components/Header.jsx";
 import { Footer } from "../Components/Footer.jsx";
 import { IS_DEVELOPMENT } from "../config.js";
 import { useFilters } from "../hoocks/useFilters.js";
+import "../viewtransition.css";
 
 export const ProductPage = () => {
   const { filterProducts } = useFilters();

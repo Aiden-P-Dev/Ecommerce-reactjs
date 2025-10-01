@@ -16,7 +16,7 @@ export function Products({ products }) {
           const isProductInCart = checkProductInCart(product);
           return (
             <li key={product.id} tipo={product.category}>
-              <img src={product.thumbnail} alt={product.title} />
+              <img src={product.thumbnail} alt={product.title} loading="lazy" />
               <div>
                 <strong>{product.title}</strong>{" "}
                 <h2 price={product.price}>{product.price}</h2>
