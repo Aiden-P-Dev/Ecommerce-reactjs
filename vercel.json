@@ -8,11 +8,12 @@
         "maxLambdaSize": "15mb"
       }
     },
+
     {
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "outputDirectory": "./frontend/dist"
+        "outputDirectory": "dist"
       }
     }
   ],
@@ -21,6 +22,12 @@
       "src": "/api/(.*)",
       "dest": "/backend/index.js"
     },
+
+    {
+      "src": "/[^/]+\\.(js|css|ico|png|jpg|gif)$",
+      "dest": "/frontend/dist/$0"
+    },
+
     {
       "src": "/(.*)",
       "dest": "/frontend/dist/index.html"
