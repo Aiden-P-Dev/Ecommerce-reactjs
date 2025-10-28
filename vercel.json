@@ -1,21 +1,6 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "backend/index.js",
-      "use": "@vercel/node",
-      "config": {
-        "maxLambdaSize": "15mb"
-      }
-    },
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build",
-      "config": {
-        "outputDirectory": "dist"
-      }
-    }
-  ],
+  "builds": [],
   "routes": [
     {
       "src": "/api/(.*)",
@@ -25,6 +10,11 @@
     {
       "src": "/assets/(.*)",
       "dest": "/frontend/dist/assets/$1"
+    },
+
+    {
+      "src": "/[^/]+\\.(js|css|ico|png|jpg|gif|svg)$",
+      "dest": "/frontend/dist/$0"
     },
 
     {
