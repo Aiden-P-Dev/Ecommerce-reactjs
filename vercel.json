@@ -6,17 +6,14 @@
       "src": "/api/(.*)",
       "dest": "/backend/index.js"
     },
-
     {
       "src": "/assets/(.*)",
       "dest": "/frontend/dist/assets/$1"
     },
-
     {
       "src": "/[^/]+\\.(js|css|ico|png|jpg|gif|svg)$",
       "dest": "/frontend/dist/$0"
     },
-
     {
       "src": "/(.*)",
       "dest": "/frontend/dist/index.html"
