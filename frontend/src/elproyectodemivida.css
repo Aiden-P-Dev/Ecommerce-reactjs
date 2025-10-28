@@ -177,10 +177,78 @@ li a {
   overflow: hidden;
 }
 .slider {
+  --bg-color-light: #e7e7eb;
+  --bg-color-dark: #323536;
   width: 300%;
   height: 100%;
   display: flex;
   animation: slide 20s infinite;
+  background: linear-gradient(
+        135deg,
+        #0000 20.5%,
+        light-dark(
+            light-dark(var(--bg-color-dark), var(--bg-color-light)),
+            light-dark(var(--bg-color-dark), var(--bg-color-light))
+          )
+          0 29.5%,
+        #0000 0
+      )
+      0 16px,
+    linear-gradient(
+        45deg,
+        #0000 8%,
+        light-dark(
+            light-dark(var(--bg-color-dark), var(--bg-color-light)),
+            light-dark(var(--bg-color-dark), var(--bg-color-light))
+          )
+          0 17%,
+        #0000 0 58%
+      )
+      32px 0,
+    linear-gradient(
+      135deg,
+      #0000 8%,
+      light-dark(
+          light-dark(var(--bg-color-dark), var(--bg-color-light)),
+          light-dark(var(--bg-color-dark), var(--bg-color-light))
+        )
+        0 17%,
+      #0000 0 58%,
+      light-dark(
+          light-dark(var(--bg-color-dark), var(--bg-color-light)),
+          light-dark(var(--bg-color-dark), var(--bg-color-light))
+        )
+        0 67%,
+      #0000 0
+    ),
+    linear-gradient(
+      45deg,
+      #0000 8%,
+      light-dark(
+          light-dark(var(--bg-color-dark), var(--bg-color-light)),
+          light-dark(var(--bg-color-dark), var(--bg-color-light))
+        )
+        0 17%,
+      #0000 0 58%,
+      light-dark(
+          light-dark(var(--bg-color-dark), var(--bg-color-light)),
+          light-dark(var(--bg-color-dark), var(--bg-color-light))
+        )
+        0 67%,
+      #0000 0 83%,
+      light-dark(
+          light-dark(var(--bg-color-dark), var(--bg-color-light)),
+          light-dark(var(--bg-color-dark), var(--bg-color-light))
+        )
+        0 92%,
+      #0000 0
+    ),
+    light-dark(
+      light-dark(var(--bg-color-light), var(--bg-color-dark)),
+      light-dark(var(--bg-color-light), var(--bg-color-dark))
+    );
+
+  background-size: 64px 64px;
 }
 .slide {
   width: 33.33%;
@@ -188,6 +256,7 @@ li a {
   background-size: cover;
   background-position: center;
   position: relative;
+  backdrop-filter: blur(4px) s;
 }
 .slide::before {
   content: "";
@@ -236,7 +305,6 @@ li a {
   width: 90%;
   &:has(h1, p, a) {
     color: #fff;
-    mix-blend-mode: difference;
   }
 }
 .hero h1 {
@@ -267,7 +335,10 @@ li a {
     rgb(244, 244, 244),
     rgba(244, 244, 244, var(--opacidad))
   );
-  color: var(--text-color);
+  color: light-dark(
+    var(--text-color),
+    hsl(from var(--text-color) h s l / var(--opacidad))
+  );
   /* aqui me quede */
 }
 .about-content {
@@ -287,6 +358,10 @@ li a {
 }
 .about-text {
   flex: 1;
+
+  p {
+    color: light-dark(var(--text-color), var(--text-color-titulo));
+  }
 }
 .about h2 {
   font-size: 2rem;
