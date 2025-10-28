@@ -3,9 +3,10 @@ import react from "@vitejs/plugin-react-swc";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // server: 3000,
+  // CLAVE: Usar rutas relativas para el deployment en Vercel.
+  base: "./",
   plugins: [react()],
   build: {
-    outDir: "dist", // Cambia esto si deseas que la salida se genere en un directorio específico
+    outDir: "dist",
   },
 });
