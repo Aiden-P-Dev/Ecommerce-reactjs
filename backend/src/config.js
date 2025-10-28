@@ -2,6 +2,6 @@ export const TOKEN_SECRET = "clavesecreta";
 
 export const MONGODB_URI =
   process.env.MONGODB_URI ||
-  "mongodb+srv://aidenpdeveloper:kF8so8iBifTbNecI@cluster.rqppn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster";
+  "mongodb+srv://Vercel-Admin-atlas-DB:ekXJ178c6KQRNRiT@atlas-db.qbw7pgh.mongodb.net/?retryWrites=true&w=majority";
 
 export const PORT = process.env.PORT || 3000;
