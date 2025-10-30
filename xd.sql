@@ -111,3 +111,37 @@ JOIN cursos ON personas.id_persona = cursos.id_profesor
 WHERE personas.tipo_persona = 'profesor'
 GROUP BY personas.id_persona
 HAVING COUNT(cursos.id_curso) > 3;
+
+
+-- {
+--   "version": 2,
+--   "builds": [
+--     {
+--       "src": "frontend/package.json",
+--       "use": "@vercel/static-build",
+--       // ESTO RESUELVE EL 404: Indica la carpeta de salida (dist) de tu build de Vite.
+--       "config": {
+--         "outputDirectory": "dist"
+--       }
+--     },
+--     {
+--       "src": "backend/src/index.js",
+--       "use": "@vercel/node"
+--     }
+--   ],
+--   "routes": [
+--     {
+--       "src": "/api/(.*)",
+--       "dest": "/backend/src/index.js"
+--     },
+--     // Esta regla genérica sirve cualquier archivo (incluyendo index.html, favicon.ico)
+--     // que esté dentro de la carpeta 'dist'.
+--     {
+--       "src": "/(.*)",
+--       "dest": "/frontend/dist/$1"
+--     }
+--   ],
+--   "env": {
+--     "NODE_ENV": "production"
+--   }
+-- }
