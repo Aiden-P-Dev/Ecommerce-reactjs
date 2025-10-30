@@ -4,7 +4,6 @@
     {
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
-
       "config": {
         "outputDirectory": "dist"
       }
@@ -21,8 +20,8 @@
     },
 
     {
-      "src": "/(.*\\.[A-Za-z0-9]+)",
-      "dest": "/frontend/dist/$1"
+      "src": "/assets/(.*)",
+      "dest": "/frontend/dist/assets/$1"
     },
 
     {
