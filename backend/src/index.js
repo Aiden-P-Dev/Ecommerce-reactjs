@@ -1,7 +1,7 @@
 import app from "./app.js";
-import { conectDB } from "./db.js";
-import { PORT } from "./config.js";
+import { connectDB } from "./database.js";
+// import { PORT } from "./config.js"; // No necesitamos PORT para Vercel
 
-conectDB();
+connectDB();
 
 export default app;
