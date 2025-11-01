@@ -22,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-app.use("/auth", authRoutes);
-app.use("/tasks", taskRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/tasks", taskRoutes);
 
 export default app;
