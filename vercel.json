@@ -17,11 +17,11 @@
     {
       "src": "/api/(.*)",
 
-      "dest": "/backend/src/index.js"
+      "dest": "/backend"
     },
 
     {
-      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|ico|svg|eot|ttf|woff|woff2))",
+      "src": "/(.*\\.[A-Za-z0-9]+)",
       "dest": "/frontend/dist/$1"
     },
 
