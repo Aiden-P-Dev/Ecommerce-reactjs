@@ -7,6 +7,6 @@ export default defineConfig({
   base: "./",
   plugins: [react()],
   build: {
-    outDir: "dist", // Coincide con outputDirectory en vercel.json
+    outDir: "dist",
   },
 });
