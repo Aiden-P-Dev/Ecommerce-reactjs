@@ -1,11 +1,13 @@
 {
   "version": 2,
+  "trailingSlash": true,
   "builds": [
     {
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
+
       "config": {
-        "outputDirectory": "dist"
+        "outputDirectory": "frontend/dist"
       }
     },
     {
@@ -18,13 +20,15 @@
       "src": "/api/(.*)",
       "dest": "/backend/src/index.js"
     },
+
     {
       "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|ico|svg|eot|ttf|woff|woff2))",
-      "dest": "/dist/$1"
+      "dest": "/frontend/dist/$1"
     },
+
     {
       "src": "/(.*)",
-      "dest": "/dist/index.html",
+      "dest": "/frontend/dist/index.html",
       "status": 200
     }
   ],
