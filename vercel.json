@@ -4,9 +4,8 @@
     {
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
-
       "config": {
-        "outputDirectory": "dist"
+        "outputDirectory": "frontend/dist"
       }
     },
     {
@@ -19,10 +18,14 @@
       "src": "/api/(.*)",
       "dest": "/backend/src/index.js"
     },
-
+    {
+      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|ico|svg|eot|ttf|woff|woff2))",
+      "dest": "/frontend/dist/$1"
+    },
     {
       "src": "/(.*)",
-      "dest": "/frontend/dist/$1"
+      "dest": "/frontend/dist/index.html",
+      "status": 200
     }
   ],
   "env": {
