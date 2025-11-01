@@ -11,13 +11,14 @@
     },
 
     {
-      "src": "backend/src/index.js",
+      "src": "backend/package.json",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
+
       "dest": "/backend/src/index.js"
     },
 
