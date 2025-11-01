@@ -3,10 +3,11 @@ import react from "@vitejs/plugin-react-swc";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // ¡¡¡ESTO ES LO QUE FALTA Y RESUELVE EL PROBLEMA!!!
-  base: "./",
-  plugins: [react()],
+  // ...
+  base: "./", // O '/frontend/'
   build: {
     outDir: "dist",
+    // ...
   },
+  // ...
 });
