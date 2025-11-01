@@ -4,7 +4,7 @@
   "description": "Backend y Frontend para Ecommerce",
   "main": "backend/src/index.js",
   "scripts": {
-    "build": "npm run build --prefix frontend",
+    "build": "npm run build",
     "dev": "vite",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
