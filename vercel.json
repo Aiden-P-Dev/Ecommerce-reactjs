@@ -1,8 +1,4 @@
 {
-  "name": "ecommerce-reactjs-root",
-  "scripts": {
-    "build": "npm run build --prefix frontend"
-  },
   "version": 2,
   "builds": [
     {
