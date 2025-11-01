@@ -19,7 +19,7 @@ export const conectDB = async () => {
     );
     console.error("🔴 Mensaje de Error:", error.message);
     console.error(
-      "🔴 ¡Revisa la MONGODB_URI y el Acceso a la Red en MongoDB Atlas!"
+      "🔴 Revisa la MONGODB_URI y el Acceso a la Red en MongoDB Atlas!"
     );
     console.error("=================================================");
 
