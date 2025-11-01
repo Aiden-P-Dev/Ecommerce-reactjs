@@ -10,7 +10,11 @@ const app = express();
 
 app.use(
   cors({
-    origin: "*",
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
+      return callback(null, true);
+    },
     credentials: true,
   })
 );
@@ -22,7 +26,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-app.use("/api/auth", authRoutes);
-app.use("/api/tasks", taskRoutes);
+app.use("/auth", authRoutes);
+app.use("/tasks", taskRoutes);
 
 export default app;

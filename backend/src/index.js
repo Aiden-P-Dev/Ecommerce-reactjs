@@ -4,12 +4,6 @@ import { PORT } from "./config.js";
 
 const app = express();
 
-async function main() {
-  await connectDB();
+connectDB();
 
-  app.listen(PORT, () => {
-    console.log(`Servidor escuchando en el puerto ${PORT}`);
-  });
-}
-
-main();
+export default app;
