@@ -1,14 +1,18 @@
 {
   "version": 2,
-
+  "trailingSlash": true,
   "builds": [
     {
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
+
       "config": {
-        "outputDirectory": "frontend/dist"
+        "outputDirectory": "dist",
+
+        "buildCommand": "npm run build"
       }
     },
+
     {
       "src": "backend/src/index.js",
       "use": "@vercel/node"
@@ -21,14 +25,13 @@
     },
 
     {
-      "src": "/(.*\\.[A-Za-z0-9]+)",
+      "src": "/(assets/.*)",
       "dest": "/frontend/dist/$1"
     },
 
     {
       "src": "/(.*)",
-      "dest": "/frontend/dist/index.html",
-      "status": 200
+      "dest": "/frontend/dist/index.html"
     }
   ],
   "env": {
