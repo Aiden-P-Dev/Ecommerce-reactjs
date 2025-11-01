@@ -1,20 +1,7 @@
 {
   "version": 2,
   "trailingSlash": true,
-  "builds": [
-    {
-      "src": "frontend/**/*",
-      "use": "@vercel/static-build",
-      "config": {
-        "outputDirectory": "dist"
-      }
-    },
 
-    {
-      "src": "backend/src/index.js",
-      "use": "@vercel/node"
-    }
-  ],
   "routes": [
     {
       "src": "/api/(.*)",
@@ -22,7 +9,7 @@
     },
 
     {
-      "src": "/(assets/.*)",
+      "src": "/(.*\\.[A-Za-z0-9]+)",
       "dest": "/frontend/dist/$1"
     },
 
