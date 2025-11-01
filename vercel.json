@@ -7,7 +7,7 @@
       "config": {
         "outputDirectory": "dist",
 
-        "buildCommand": "npm install --prefix frontend && npm run build"
+        "buildCommand": "rm -rf frontend/node_modules && npm install --prefix frontend && npm run build"
       }
     },
     {
