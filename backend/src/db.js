@@ -8,7 +8,6 @@ export const conectDB = async () => {
   );
 
   mongoose.set("strictQuery", false);
-
   mongoose.set("bufferCommands", false);
 
   try {
