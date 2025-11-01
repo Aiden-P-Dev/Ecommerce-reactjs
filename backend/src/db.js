@@ -2,32 +2,25 @@ import mongoose from "mongoose";
 import { MONGODB_URI } from "./config.js";
 
 export const conectDB = async () => {
+  mongoose.set("strictQuery", false);
+
   try {
-    await mongoose.connect(MONGODB_URI);
-    console.log("esta conectado a la base de datos");
+    const conn = await mongoose.connect(MONGODB_URI, {
+      serverSelectionTimeoutMS: 5000,
+    });
+
+    console.log(`¡Conexión DB Exitosa! Host: ${conn.connection.host}`);
   } catch (error) {
-    console.log(error);
+    console.error("=================================================");
+    console.error(
+      "🔴 ERROR CRÍTICO: Falló la conexión a la base de datos (db.js)."
+    );
+    console.error("🔴 Mensaje de Error:", error.message);
+    console.error(
+      "🔴 ¡Revisa la MONGODB_URI y el Acceso a la Red en MongoDB Atlas!"
+    );
+    console.error("=================================================");
+
+    throw new Error("DB Connection Failed: " + error.message);
   }
 };
-
-// mongodb+srv://aidenpdeveloper:kF8so8iBifTbNecI@cluster.rqppn.mongodb.net/
-
-// mongodb+srv://aidenpdeveloper:kF8so8iBifTbNecI@cluster.rqppn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster
-
-// mongodb+srv://aidenpdeveloper:kF8so8iBifTbNecI@cluster.rqppn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster
-
-// ("mongodb+srv://aidenpdeveloper:caribeno@cluster.rqppn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster");
-
-// "mongodb://localhost/caribeno"
-
-// "mongodb+srv://aidenpdeveloper:IXLKYLuM6A0q1J9y@cluster.rqppn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster"
-
-// mongodb+srv://aidenpdeveloper:<db_password>@cluster.rqppn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster
-
-// "mongodb://localhost/merndb"
-
-// mongodb+srv://aidenpdeveloper:<db_password>@cluster.rqppn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster
-
-// 9Jg5iBTcc34oW9Zd
-
-// mongodb+srv://aidenpdeveloper:9Jg5iBTcc34oW9Zd@cluster.rqppn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster
