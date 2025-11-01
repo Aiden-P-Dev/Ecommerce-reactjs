@@ -1,12 +1,11 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  // ¡¡¡ESTO ES LO QUE FALTA Y RESUELVE EL PROBLEMA!!!
-  base: "./",
   plugins: [react()],
-  build: {
-    outDir: "dist", // Coincide con outputDirectory en vercel.json
-  },
+  // ----------------------------------------------------
+  // Obliga a usar rutas relativas: ./assets/...
+  // ----------------------------------------------------
+  base: "./",
 });
