@@ -29,4 +29,18 @@ app.use(cookieParser());
 app.use("/auth", authRoutes);
 app.use("/tasks", taskRoutes);
 
+app.use((req, res, next) => {
+  res.status(404).json({
+    message: "Ruta no encontrada. Por favor, revisa el endpoint.",
+  });
+});
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(err.status || 500).json({
+    message: err.message || "Error interno del servidor",
+    error: err.name || "Error desconocido",
+  });
+});
+
 export default app;
