@@ -22,8 +22,8 @@
     },
 
     {
-      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|ico|svg|eot|ttf|woff|woff2|map))",
-      "dest": "/frontend/dist/$1"
+      "src": "/(.*.(css|js|png|jpg|jpeg|gif|ico|svg|eot|ttf|woff|woff2|map))",
+      "dest": "/frontend/dist/assets"
     },
 
     {
