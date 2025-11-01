@@ -4,6 +4,8 @@ import { MONGODB_URI } from "./config.js";
 export const conectDB = async () => {
   mongoose.set("strictQuery", false);
 
+  mongoose.set("bufferCommands", false);
+
   try {
     const conn = await mongoose.connect(MONGODB_URI, {
       serverSelectionTimeoutMS: 5000,
