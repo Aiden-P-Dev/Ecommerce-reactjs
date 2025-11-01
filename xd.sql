@@ -145,3 +145,39 @@ HAVING COUNT(cursos.id_curso) > 3;
 --     "NODE_ENV": "production"
 --   }
 -- }
+
+-- importante
+-- {
+--   "name": "curso-vite",
+--   "private": true,
+--   "version": "0.0.0",
+--   "type": "module",
+--   "scripts": {
+--     "dev": "vite",
+--     "build": "vite build",
+--     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+--     "preview": "vite preview",
+--     "start": "serve -s dist"
+--   },
+--   "dependencies": {
+--     "@react-pdf/renderer": "^3.4.5",
+--     "axios": "^1.7.8",
+--     "js-cookie": "^3.0.5",
+--     "react": "^18.3.1",
+--     "react-dom": "^18.3.1",
+--     "react-hook-form": "^7.54.2",
+--     "react-router": "^7.6.3",
+--     "react-router-dom": "^6.30.1",
+--     "serve": "^14.2.4"
+--   },
+--   "devDependencies": {
+--     "@types/react": "^18.3.3",
+--     "@types/react-dom": "^18.3.0",
+--     "@vitejs/plugin-react-swc": "^3.5.0",
+--     "eslint": "^8.57.0",
+--     "eslint-plugin-react": "^7.34.3",
+--     "eslint-plugin-react-hooks": "^4.6.2",
+--     "eslint-plugin-react-refresh": "^0.4.7",
+--     "vite": "^5.3.4"
+--   }
+-- }
