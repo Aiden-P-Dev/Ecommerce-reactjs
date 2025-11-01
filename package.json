@@ -1,35 +1,13 @@
 {
   "name": "ecommerce-monorepo",
   "version": "1.0.0",
-  "description": "Backend y Frontend para Ecommerce",
+  "description": "Monorepo para Backend y Frontend de Ecommerce",
   "main": "index.js",
   "scripts": {
     "build": "npm run build --prefix frontend",
-    "dev": "vite",
-    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
-    "start": "serve -s dist"
+    "dev": "npm run dev --prefix frontend",
+    "start": "node backend/index.js"
   },
-  "dependencies": {
-    "@react-pdf/renderer": "^3.4.5",
-    "axios": "^1.7.8",
-    "js-cookie": "^3.0.5",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-hook-form": "^7.54.2",
-    "react-router": "^7.6.3",
-    "react-router-dom": "^6.30.1",
-    "serve": "^14.2.4",
-    "express": "^4.19.2"
-  },
-  "devDependencies": {
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
-    "@vitejs/plugin-react-swc": "^3.5.0",
-    "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.34.3",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-react-refresh": "^0.4.7",
-    "vite": "^5.3.4"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }
