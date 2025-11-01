@@ -22,11 +22,6 @@
     },
 
     {
-      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|ico|svg|eot|ttf|woff|woff2))",
-      "dest": "/frontend/dist/$1"
-    },
-
-    {
       "src": "/(.*)",
       "dest": "/frontend/dist/index.html",
       "status": 200
