@@ -22,7 +22,7 @@
     },
 
     {
-      "src": "/(assets/.*)",
+      "src": "/(.*\\.(css|js|png|jpg|jpeg|gif|ico|svg|eot|ttf|woff|woff2))",
       "dest": "/frontend/dist/$1"
     },
 
