@@ -1,6 +1,19 @@
 {
   "version": 2,
-  "trailingSlash": true,
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+
+      "config": {
+        "outputDirectory": "dist"
+      }
+    },
+    {
+      "src": "backend/src/index.js",
+      "use": "@vercel/node"
+    }
+  ],
   "routes": [
     {
       "src": "/api/(.*)",
@@ -8,13 +21,8 @@
     },
 
     {
-      "src": "/(.*\\.[A-Za-z0-9]+)",
-      "dest": "/dist/$1"
-    },
-
-    {
       "src": "/(.*)",
-      "dest": "/dist/index.html"
+      "dest": "/frontend/dist/$1"
     }
   ],
   "env": {
