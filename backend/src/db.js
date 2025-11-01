@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 import { MONGODB_URI } from "./config.js";
 
 export const conectDB = async () => {
+  const attemptVersion = "V5.0";
+  console.log(
+    `Iniciando conexión DB. Versión de diagnóstico: ${attemptVersion}`
+  );
+
   mongoose.set("strictQuery", false);
 
   mongoose.set("bufferCommands", false);
@@ -19,7 +24,7 @@ export const conectDB = async () => {
     );
     console.error("🔴 Mensaje de Error:", error.message);
     console.error(
-      "🔴 Revisa la MONGODB_URI y el Acceso a la Red en MongoDB Atlas!"
+      "🔴 ¡Revisa la MONGODB_URI y el Acceso a la Red en MongoDB Atlas!"
     );
     console.error("=================================================");
 
