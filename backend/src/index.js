@@ -1,7 +1,15 @@
-import app from "./app.js";
-import { conectDB } from "./db.js";
+import express from "express";
+import { connectDB } from "./db.js";
 import { PORT } from "./config.js";
 
-conectDB();
+const app = express();
 
-export default app;
+async function main() {
+  await connectDB();
+
+  app.listen(PORT, () => {
+    console.log(`Servidor escuchando en el puerto ${PORT}`);
+  });
+}
+
+main();
