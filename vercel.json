@@ -1,15 +1,14 @@
 {
   "version": 2,
-  "trailingSlash": true,
   "builds": [
     {
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
+
       "config": {
         "outputDirectory": "dist"
       }
     },
-
     {
       "src": "backend/src/index.js",
       "use": "@vercel/node"
@@ -23,9 +22,7 @@
 
     {
       "src": "/(.*)",
-
-      "dest": "/frontend/dist/index.html",
-      "status": 200
+      "dest": "/frontend/dist/$1"
     }
   ],
   "env": {
