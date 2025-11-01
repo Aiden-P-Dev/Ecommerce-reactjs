@@ -3,9 +3,8 @@
   "trailingSlash": true,
   "builds": [
     {
-      "src": "Frontend/package.json",
+      "src": "Frontend/**/*",
       "use": "@vercel/static-build",
-
       "config": {
         "outputDirectory": "dist"
       }
