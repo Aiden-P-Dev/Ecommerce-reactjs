@@ -1,15 +1,17 @@
 {
   "version": 2,
+  "trailingSlash": true,
   "builds": [
     {
-      "src": "backend/index.js",
+      "src": "backend/src/index.js",
       "use": "@vercel/node",
       "config": {
         "maxLambdaSize": "15mb"
       }
     },
+
     {
-      "src": "frontend/**/*.html",
+      "src": "frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
         "outputDirectory": "dist"
@@ -19,8 +21,9 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/backend/index.js"
+      "dest": "/backend/src/index.js"
     },
+
     {
       "src": "/(.*)",
       "dest": "/frontend/dist/index.html"
