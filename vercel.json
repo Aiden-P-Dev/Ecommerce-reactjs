@@ -20,22 +20,17 @@
       "src": "/api/(.*)",
       "dest": "backend/src/index.js"
     },
-    {
-      "src": "/assets/(.*\\.js)",
-      "dest": "frontend/dist/assets/$1"
-    },
-    {
-      "src": "/assets/(.*\\.css)",
-      "dest": "frontend/dist/assets/$1"
-    },
+
     {
       "src": "/assets/(.*)",
       "dest": "frontend/dist/assets/$1"
     },
+
     {
       "src": "/",
       "dest": "frontend/dist/index.html"
     },
+
     {
       "src": "/(.*)",
       "dest": "frontend/dist/index.html"
