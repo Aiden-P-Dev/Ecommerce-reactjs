@@ -1,10 +1,13 @@
 {
   "version": 2,
-
   "builds": [
     {
       "src": "frontend/package.json",
-      "use": "@vercel/static-build"
+      "use": "@vercel/static-build",
+
+      "config": {
+        "outputDirectory": "frontend/dist"
+      }
     },
     {
       "src": "backend/src/index.js",
@@ -20,6 +23,11 @@
     {
       "src": "/assets/(.*)",
       "dest": "/frontend/dist/assets/$1"
+    },
+
+    {
+      "src": "/(.*\\.[A-Za-z0-9]+)",
+      "dest": "/frontend/dist/$1"
     },
 
     {
