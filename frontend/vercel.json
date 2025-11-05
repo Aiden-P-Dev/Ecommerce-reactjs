@@ -4,9 +4,10 @@
     {
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
-
       "config": {
-        "outputDirectory": "frontend/dist"
+        "rootDirectory": "frontend",
+
+        "outputDirectory": "dist"
       }
     },
     {
@@ -22,12 +23,13 @@
 
     {
       "src": "/(.+\\.[A-Za-z0-9]+)",
-      "dest": "/frontend/dist/"
+      "dest": "/$1"
     },
 
     {
       "src": "/(.*)",
-      "dest": "/frontend/dist/index.html",
+
+      "dest": "/index.html",
       "status": 200
     }
   ],
