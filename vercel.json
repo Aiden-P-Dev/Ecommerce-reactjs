@@ -15,13 +15,18 @@
   ],
   "routes": [
     {
+      "src": "/favicon.ico",
+      "dest": "/frontend/dist/favicon.ico"
+    },
+
+    {
       "src": "/api/(.*)",
       "dest": "/backend/src/index.js"
     },
 
     {
-      "src": "/(.*\\.[A-Za-z0-9]+)",
-      "dest": "/frontend/dist/$1"
+      "src": "/assets/(.*)",
+      "dest": "/frontend/dist/assets/$1"
     },
 
     {
