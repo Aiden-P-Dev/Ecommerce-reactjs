@@ -21,12 +21,7 @@
     },
 
     {
-      "src": "/assets/(.*)",
-      "dest": "/frontend/dist/assets/$1"
-    },
-
-    {
-      "src": "/(.*\\.[A-Za-z0-9]+)",
+      "src": "/(.+\\.[A-Za-z0-9]+)",
       "dest": "/frontend/dist/$1"
     },
 
