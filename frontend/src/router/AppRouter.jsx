@@ -5,7 +5,7 @@ import { ProductPage } from "../pages/ProductPage.jsx";
 import { Login } from "../pages/Login.jsx";
 import { Signup } from "../pages/Signup.jsx";
 import PrivateRoute from "./PrivateRoute.jsx";
-import "../viewtransition.css";
+// import "../viewtransition.css";
 
 export const AppRouter = () => {
   return (

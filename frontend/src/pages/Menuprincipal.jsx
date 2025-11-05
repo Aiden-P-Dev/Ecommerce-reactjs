@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 // import "./Main.css";
-import "../viewtransition.css";
+// import "../viewtransition.css";
 
 // import imagen1 from "./Components/Img/Open Peeps - Avatar.png";
 import imagen1 from "./Img/Avatar.png";

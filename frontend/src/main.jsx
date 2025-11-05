@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./Components/Main.css";
 // import "./elproyectodemivida.css";
-import "./viewtransition.css";
+// import "./viewtransition.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
