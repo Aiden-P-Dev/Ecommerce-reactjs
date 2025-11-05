@@ -6,7 +6,7 @@
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "outputDirectory": "frontend/dist"
+        "outputDirectory": "dist"
       }
     },
     {
@@ -14,6 +14,7 @@
       "use": "@vercel/node"
     }
   ],
+
   "routes": [
     {
       "src": "/api/(.*)",
@@ -21,8 +22,8 @@
     },
 
     {
-      "src": "/assets/(.*)",
-      "dest": "/frontend/dist/assets/$1"
+      "src": "/(.+\\.[A-Za-z0-9]+)",
+      "dest": "/frontend/dist/$1"
     },
 
     {
@@ -31,6 +32,7 @@
       "status": 200
     }
   ],
+
   "env": {
     "NODE_ENV": "production"
   }
