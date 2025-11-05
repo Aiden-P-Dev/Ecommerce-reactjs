@@ -9,6 +9,7 @@
         "outputDirectory": "frontend/dist"
       }
     },
+
     {
       "src": "backend/src/index.js",
       "use": "@vercel/node"
