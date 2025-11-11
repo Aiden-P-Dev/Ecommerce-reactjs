@@ -5,6 +5,7 @@ import cors from "cors";
 
 import authRoutes from "./routes/auth.routes.js";
 import taskRoutes from "./routes/task.routes.js";
+
 import { conectDB } from "./db.js";
 
 conectDB();
