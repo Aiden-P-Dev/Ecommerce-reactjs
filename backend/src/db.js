@@ -19,11 +19,11 @@ export const conectDB = async () => {
   } catch (error) {
     console.error("=================================================");
     console.error(
-      "🔴 ERROR CRÍTICO: Falló la conexión a la base de datos (db.js)."
+      "ERROR CRÍTICO: Falló la conexión a la base de datos (db.js)."
     );
-    console.error("🔴 Mensaje de Error:", error.message);
+    console.error("Mensaje de Error:", error.message);
     console.error(
-      "🔴 ¡Revisa la MONGODB_URI y el Acceso a la Red en MongoDB Atlas!"
+      "¡Revisa la MONGODB_URI y el Acceso a la Red en MongoDB Atlas!"
     );
     console.error("=================================================");
 
