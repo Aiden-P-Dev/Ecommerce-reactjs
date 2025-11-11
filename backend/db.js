@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { MONGODB_URI } from "./config.js";
+import { MONGODB_URI } from "./src/config.js";
 
 export const conectDB = async () => {
   const attemptVersion = "V5.0";
