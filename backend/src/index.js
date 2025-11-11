@@ -5,7 +5,6 @@ import cors from "cors";
 
 import authRoutes from "./routes/auth.routes.js";
 import taskRoutes from "./routes/task.routes.js";
-
 import { conectDB } from "./db.js";
 
 conectDB();
@@ -32,8 +31,8 @@ app.use(cookieParser());
 app.use("/api", authRoutes);
 app.use("/api", taskRoutes);
 
-app.get("/ping", (req, res) => {
-  res.json({ message: "Pong! API is alive." });
+app.get("/api/ping", (req, res) => {
+  res.json({ message: "Pong! API is alive, and routing works." });
 });
 
 app.use((req, res, next) => {
@@ -49,7 +48,5 @@ app.use((err, req, res, next) => {
     error: err.name || "Error desconocido",
   });
 });
-
-console.log("Servidor Express configurado y listo para exportar.");
 
 export default app;
