@@ -6,18 +6,18 @@
       "use": "@vercel/static-build",
 
       "config": {
-        "outputDirectory": "frontend/dist"
+        "outputDirectory": "dist"
       }
     },
     {
-      "src": "backend/index.js",
+      "src": "backend/src/index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "/backend/index.js"
+      "dest": "/backend/src/index.js"
     },
 
     {
@@ -30,8 +30,5 @@
       "dest": "/frontend/dist/index.html",
       "status": 200
     }
-  ],
-  "env": {
-    "NODE_ENV": "production"
-  }
+  ]
 }
