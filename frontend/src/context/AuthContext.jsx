@@ -5,6 +5,7 @@ import {
   verifyTokenRequest,
 } from "../api/auth.js";
 import Cookies from "js-cookie";
+
 export const AuthContext = createContext();
 
 export const useAuth = () => {
@@ -27,9 +28,20 @@ export const AuthProvider = ({ children }) => {
       console.log(res.data);
       setUser(res.data);
       setIsAuthenticated(true);
+
+      setErrors([]);
     } catch (error) {
       console.log(error.response);
-      setErrors(error.response.data);
+
+      if (Array.isArray(error.response.data)) {
+        return setErrors(error.response.data);
+      }
+
+      if (error.response.data.message) {
+        return setErrors([error.response.data.message]);
+      }
+
+      setErrors(["Ocurrió un error inesperado de red o servidor."]);
     }
   };
 
@@ -39,12 +51,19 @@ export const AuthProvider = ({ children }) => {
       console.log(res);
       setIsAuthenticated(true);
       setUser(res.data);
+      setErrors([]);
     } catch (error) {
       if (Array.isArray(error.response.data)) {
         return setErrors(error.response.data);
       }
       setErrors([error.response.data.message]);
     }
+  };
+
+  const logout = () => {
+    Cookies.remove("token");
+    setIsAuthenticated(false);
+    setUser(null);
   };
 
   useEffect(() => {
@@ -67,7 +86,8 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
-        const res = verifyTokenRequest(cookies.token);
+        const res = await verifyTokenRequest(cookies.token);
+
         if (!res.data) {
           setIsAuthenticated(false);
           setLoading(false);
@@ -91,6 +111,7 @@ export const AuthProvider = ({ children }) => {
       value={{
         signup,
         signin,
+        logout,
         loading,
         user,
         isAuthenticated,
