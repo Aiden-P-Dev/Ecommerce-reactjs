@@ -5,7 +5,7 @@
       "src": "frontend/package.json",
       "use": "@vercel/static-build",
       "config": {
-        "outputDirectory": "dist"
+        "distDir": "dist"
       }
     },
 
@@ -21,13 +21,8 @@
     },
 
     {
-      "src": "/(.+\\.[A-Za-z0-9]+)",
-      "dest": "frontend/dist/$1"
-    },
-    {
       "src": "/(.*)",
-      "dest": "frontend/dist/index.html",
-      "status": 200
+      "dest": "frontend/dist/index.html"
     }
   ]
 }
