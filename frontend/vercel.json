@@ -10,24 +10,24 @@
     },
 
     {
-      "src": "backend/index.js",
+      "src": "Programa_principalV10 cambios/backend/index.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "backend/index.js"
+      "dest": "Programa_principalV10 cambios/backend/index.js"
     },
 
     {
       "src": "/(.+\\.[A-Za-z0-9]+)",
-      "dest": "frontend/dist/$1"
+      "dest": "Programa_principalV10 cambios/frontend/dist/$1"
     },
 
     {
       "src": "/(.*)",
-      "dest": "frontend/dist/index.html"
+      "dest": "Programa_principalV10 cambios/frontend/dist/index.html"
     }
   ]
 }
