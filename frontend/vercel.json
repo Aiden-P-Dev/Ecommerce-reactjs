@@ -8,7 +8,6 @@
         "distDir": "dist"
       }
     },
-
     {
       "src": "backend/index.js",
       "use": "@vercel/node"
