@@ -1,14 +1,29 @@
+// backend/db.js (ÚNICO ARCHIVO DE CÓDIGO A CAMBIAR)
+
 import mongoose from "mongoose";
-import { MONGODB_URI } from "./src/config.js";
+// ¡ELIMINAR ESTA LÍNEA!
+// import { MONGODB_URI } from "./src/config.js";
 
 export const conectDB = async () => {
-  const attemptVersion = "V5.0";
+  const attemptVersion = "V5.1 - Lectura de ENV"; // Nueva versión de diagnóstico
   console.log(
     `Iniciando conexión DB. Versión de diagnóstico: ${attemptVersion}`
   );
 
+  // **NUEVO CÓDIGO: LEER DIRECTAMENTE DE LAS VARIABLES DE ENTORNO DE VERCEL**
+  const MONGODB_URI = process.env.MONGODB_URI;
+
   mongoose.set("strictQuery", false);
   mongoose.set("bufferCommands", false);
+
+  if (!MONGODB_URI) {
+    console.error("=================================================");
+    console.error(
+      "ERROR CRÍTICO: MONGODB_URI no está definida en el entorno de Vercel."
+    );
+    console.error("=================================================");
+    throw new Error("DB Connection Failed: MONGODB_URI not set.");
+  }
 
   try {
     const conn = await mongoose.connect(MONGODB_URI, {

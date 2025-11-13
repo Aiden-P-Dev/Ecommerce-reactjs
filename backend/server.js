@@ -1,45 +1,81 @@
 const express = require("express");
-const mysql = require("mysql");
 const cors = require("cors");
+const mongoose = require("mongoose");
+
+const User = require("./models/User");
 
 const app = express();
-app.use(cors());
+
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL || "*",
+    credentials: true,
+  })
+);
 app.use(express.json());
 
-const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "signup",
-});
+const MONGODB_URI = process.env.MONGODB_URI || "TU_URI_DE_FALLBACK";
 
-app.post("/signup", (req, res) => {
-  const sql =
-    "INSERT INTO login (`name`, `email`, `password`) VALUES (?, ?, ?)";
-  const values = [req.body.name, req.body.email, req.body.password];
+mongoose
+  .connect(MONGODB_URI)
+  .then(() => console.log("Conexión a MongoDB Atlas exitosa"))
+  .catch((err) => console.error("Error de conexión a MongoDB:", err));
 
-  db.query(sql, values, (err, data) => {
-    if (err) {
-      return res.status(500).json("Error");
+app.post("/api/signup", async (req, res) => {
+  const { name, email, password } = req.body;
+
+  if (!name || !email || !password) {
+    return res
+      .status(400)
+      .json({ message: "Todos los campos son obligatorios." });
+  }
+
+  try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res
+        .status(409)
+        .json({ message: "El correo electrónico ya está registrado." });
     }
-    return res.json("Success");
-  });
+
+    const newUser = new User({ name, email, password });
+    await newUser.save();
+
+    return res
+      .status(201)
+      .json({ message: "Registro exitoso", userId: newUser._id });
+  } catch (error) {
+    console.error("Error al registrar el usuario:", error);
+
+    return res
+      .status(500)
+      .json({ message: "Ocurrió un error inesperado en el servidor." });
+  }
 });
 
-app.post("/login", (req, res) => {
-  const sql = "SELECT * FROM login WHERE `email` = ? AND `password` = ?";
-  db.query(sql, [req.body.email, req.body.password], (err, data) => {
-    if (err) {
-      return res.status(500).json("Error");
+app.post("/api/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "Credenciales faltantes." });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ message: "Credenciales inválidas." });
     }
-    if (data.length > 0) {
-      return res.json("Success");
-    } else {
-      return res.json("Fail");
+
+    if (user.password !== password) {
+      return res.status(401).json({ message: "Credenciales inválidas." });
     }
-  });
+
+    return res.json({ message: "Inicio de sesión exitoso", userId: user._id });
+  } catch (error) {
+    console.error("Error al iniciar sesión:", error);
+    return res.status(500).json({ message: "Error interno del servidor." });
+  }
 });
 
-app.listen(8081, () => {
-  console.log("Todo fino");
-});
+module.exports = app;
