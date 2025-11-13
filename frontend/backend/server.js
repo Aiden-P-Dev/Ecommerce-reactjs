@@ -56,9 +56,9 @@ app.post("/api/signup", async (req, res) => {
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
 
-  if (!email || !password) {
-    return res.status(400).json({ message: "Credenciales faltantes." });
-  }
+  // if (!email || !password) {
+  //   return res.status(400).json({ message: "Credenciales faltantes." });
+  // }
 
   try {
     const user = await User.findOne({ email });
