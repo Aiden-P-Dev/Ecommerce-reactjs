@@ -13,7 +13,7 @@ conectDB();
 const app = express();
 
 app.use(morgan("dev"));
-
+// XD
 app.use(
   cors({
     origin: (origin, callback) => {
