@@ -1,7 +1,7 @@
 // backend/db.js (ÚNICO ARCHIVO DE CÓDIGO A CAMBIAR)
 
 import mongoose from "mongoose";
-// ¡ELIMINAR ESTA LÍNEA XD!
+// ¡ELIMINAR ESTA LÍNEA XD XD!
 // import { MONGODB_URI } from "./src/config.js";
 
 export const conectDB = async () => {
