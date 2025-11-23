@@ -571,6 +571,7 @@ ul {
 
 .input-container input {
   background-color: #fff;
+  color: light-dark(#000, #fff);
   padding: 1rem;
   padding-right: 3rem;
   font-size: 0.875rem;
