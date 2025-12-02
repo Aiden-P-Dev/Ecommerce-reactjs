@@ -1,8 +1,12 @@
 // backend/db.js (ÚNICO ARCHIVO DE CÓDIGO A CAMBIAR)
 
 import mongoose from "mongoose";
-// ¡ELIMINAR ESTA LÍNEA XD XD XD!
-// import { MONGODB_URI } from "./src/config.js";
+
+// Importar dotenv si no estás en producción (para que funcione 'npm run start')
+// Solo cargamos el .env si el entorno NO es Vercel/producción.
+if (process.env.NODE_ENV !== "production" && !process.env.MONGODB_URI) {
+  import("dotenv").then((dotenv) => dotenv.config());
+}
 
 export const conectDB = async () => {
   const attemptVersion = "V5.1 - Lectura de ENV"; // Nueva versión de diagnóstico
@@ -10,8 +14,8 @@ export const conectDB = async () => {
     `Iniciando conexión DB. Versión de diagnóstico: ${attemptVersion}`
   );
 
-  // **NUEVO CÓDIGO: LEER DIRECTAMENTE DE LAS VARIABLES DE ENTORNO DE VERCEL**
-  const MONGODB_URI = process.env.MONGODB_URI;
+  // Ahora, MONGODB_URI estará disponible si se usó 'npm run start' o si estás en Vercel
+  const MONGODB_URI = process.env.MONGODB_URI; // Esta línea permanece igual
 
   mongoose.set("strictQuery", false);
   mongoose.set("bufferCommands", false);
