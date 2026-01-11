@@ -1,18 +1,12 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import {
-  registerRequest,
-  loginRequest,
-  verifyTokenRequest,
-} from "../api/auth.js";
-import Cookies from "js-cookie";
+import { supabase } from "../supabaseClient.js"; // Asegúrate de tener este archivo configurado
 
 export const AuthContext = createContext();
 
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context)
-    throw new Error("use auth debe utilizarse dentro de un AuthProvider");
-
+    throw new Error("useAuth debe utilizarse dentro de un AuthProvider");
   return context;
 };
 
@@ -22,50 +16,59 @@ export const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const signup = async (user) => {
+  // 1. Registro (Signup)
+  const signup = async (userData) => {
     try {
-      const res = await registerRequest(user);
-      console.log(res.data);
-      setUser(res.data);
-      setIsAuthenticated(true);
+      console.log("Intentando registrar a:", userData.email); // Debug
+      const { data, error } = await supabase.auth.signUp({
+        email: userData.email.toLowerCase(),
+        password: userData.password,
+      });
 
-      setErrors([]);
+      if (error) {
+        console.error("Error de Supabase detectado:", error.message);
+        throw error;
+      }
+
+      console.log("Registro exitoso, datos:", data); // Debug
+
+      if (data.user) {
+        setUser(data.user);
+        setIsAuthenticated(!!data.session);
+        setErrors([]);
+      }
     } catch (error) {
-      console.log(error.response);
-
-      if (Array.isArray(error.response.data)) {
-        return setErrors(error.response.data);
-      }
-
-      if (error.response.data.message) {
-        return setErrors([error.response.data.message]);
-      }
-
-      setErrors(["Ocurrió un error inesperado de red o servidor."]);
+      setErrors([error.message]);
     }
   };
 
-  const signin = async (user) => {
+  // 2. Inicio de Sesión (Signin)
+  const signin = async (userData) => {
     try {
-      const res = await loginRequest(user);
-      console.log(res);
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email: userData.email.toLowerCase(),
+        password: userData.password,
+      });
+
+      if (error) throw error;
+
+      setUser(data.user);
       setIsAuthenticated(true);
-      setUser(res.data);
       setErrors([]);
     } catch (error) {
-      if (Array.isArray(error.response.data)) {
-        return setErrors(error.response.data);
-      }
-      setErrors([error.response.data.message]);
+      // Manejo de errores igual al anterior para no romper tu UI
+      setErrors([error.message]);
     }
   };
 
-  const logout = () => {
-    Cookies.remove("token");
-    setIsAuthenticated(false);
+  // 3. Cierre de Sesión (Logout)
+  const logout = async () => {
+    await supabase.auth.signOut();
     setUser(null);
+    setIsAuthenticated(false);
   };
 
+  // Limpiador de errores (Timer de 5 segundos)
   useEffect(() => {
     if (errors.length > 0) {
       const timer = setTimeout(() => {
@@ -75,35 +78,37 @@ export const AuthProvider = ({ children }) => {
     }
   }, [errors]);
 
+  // 4. Verificación de sesión en tiempo real (Reemplaza a Cookies)
   useEffect(() => {
-    async function checkLogin() {
-      const cookies = Cookies.get();
-
-      if (!cookies.token) {
-        setIsAuthenticated(false);
-        setLoading(false);
-        return setUser(null);
-      }
-
-      try {
-        const res = await verifyTokenRequest(cookies.token);
-
-        if (!res.data) {
-          setIsAuthenticated(false);
-          setLoading(false);
-          return;
-        }
-
+    // Verificar sesión inicial
+    const checkSession = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      if (session) {
+        setUser(session.user);
         setIsAuthenticated(true);
-        setUser(res.data);
-        setLoading(false);
-      } catch (error) {
-        setIsAuthenticated(false);
-        setUser(null);
-        setLoading(false);
       }
-    }
-    checkLogin();
+      setLoading(false);
+    };
+
+    checkSession();
+
+    // Escuchar cambios en el estado (login/logout/refresh)
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) {
+        setUser(session.user);
+        setIsAuthenticated(true);
+      } else {
+        setUser(null);
+        setIsAuthenticated(false);
+      }
+      setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
   }, []);
 
   return (

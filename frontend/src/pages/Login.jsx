@@ -1,119 +1,91 @@
-// import React, { useState } from "react";
-import "../Components/Login.css";
-// import { Link, useNavigate } from "react-router-dom";
-// // import Validation from "../hoocks/LoginValidation";
-// import axios from "axios";
-
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useAuth } from "../context/AuthContext.jsx";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-// import "../viewtransition.css";
+import { useAuth } from "../context/AuthContext.jsx";
+import "../Components/Login.css";
 
 export const Login = () => {
-  // const [values, setValues] = useState({
-  //   email: "",
-  //   password: "",
-  // });
-
-  // const navigate = useNavigate();
-  // const [errors, setErrors] = useState({});
-
-  // const handleInput = (event) => {
-  //   setValues((prev) => ({
-  //     ...prev,
-  //     [event.target.name]: event.target.value,
-  //   }));
-  // };
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   const validationErrors = Validation(values);
-  //   setErrors(validationErrors);
-  //   if (Object.values(validationErrors).every((x) => x === "")) {
-  //     axios
-  //       .post("http://localhost:8081/login", values)
-  //       .then((res) => {
-  //         if (res.data === "Success") {
-  //           localStorage.setItem("isLoggedIn", "true");
-  //           navigate("/products");
-  //         } else {
-  //           alert("No record existed");
-  //         }
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // };
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const { signin, errors: signinErrors, isAuthenticated } = useAuth();
 
+  // Usamos el nuevo contexto de Supabase
+  const { signin, errors: signinErrors, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  // Al enviar el formulario, llamamos a la función signin del contexto
   const onSubmit = handleSubmit((data) => {
     signin(data);
   });
 
-  const navigate = useNavigate();
-
+  // Efecto para redirigir cuando el usuario se autentique con éxito
   useEffect(() => {
     if (isAuthenticated) {
-      navigate("/products");
+      navigate("/products"); // Conservamos tu ruta de éxito
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, navigate]);
 
   return (
     <div className="login-container">
       <h1 className="login-title">Log In</h1>
-      <div className="">
-        <form action="" onSubmit={onSubmit} className="form">
-          <div className="input-container">
-            {signinErrors.map((error, i) => (
-              <div className="text-danger" key={i}>
-                {error}
-              </div>
-            ))}
-            <label className="label" htmlFor="email">
-              Correo
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              {...register("email", { required: true })}
-              className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md m-3"
-              placeholder="email"
-            />
-            {errors.email && (
-              <p className="text-red-500">es requerido un correo electrónico</p>
-            )}
+
+      <form onSubmit={onSubmit} className="form">
+        {/* Renderizado de errores provenientes de Supabase */}
+        {signinErrors.map((error, i) => (
+          <div className="text-danger" key={i}>
+            {error}
           </div>
-          <div className="input-container">
-            <label className="label" htmlFor="password">
-              Contraseña
-            </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              {...register("password", { required: true })}
-              className="w-full bg-zinc-700 text-white px-4 py-2 rounded-md m-3"
-              placeholder="password"
-            />
-            {errors.password && (
-              <p className="text-red-500">La contraseña es invalida</p>
-            )}
-          </div>
-          <button type="submit" className="submit">
-            Log in
-          </button>
-          <Link to="/signup" className="submit">
-            Create account
+        ))}
+
+        <div className="input-container">
+          <label className="label" htmlFor="email">
+            Correo
+          </label>
+          <input
+            type="email"
+            id="email"
+            {...register("email", { required: "El correo es requerido" })}
+            className="input-field" // Clase genérica para tu CSS
+            placeholder="email"
+          />
+          {errors.email && (
+            <p className="error-message">{errors.email.message}</p>
+          )}
+        </div>
+
+        <div className="input-container">
+          <label className="label" htmlFor="password">
+            Contraseña
+          </label>
+          <input
+            type="password"
+            id="password"
+            {...register("password", {
+              required: "La contraseña es requerida",
+            })}
+            className="input-field" // Clase genérica para tu CSS
+            placeholder="password"
+          />
+          {errors.password && (
+            <p className="error-message">{errors.password.message}</p>
+          )}
+        </div>
+
+        <button type="submit" className="submit">
+          Log in
+        </button>
+
+        <div className="footer-links">
+          <span>Don't have an account yet? </span>
+          <Link to="/signup" className="link-text">
+            Sign up
           </Link>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 };
+
+export default Login;
