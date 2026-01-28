@@ -1,0 +1,11 @@
+.contenedorprimario {
+  --bg: repeating-conic-gradient(
+    light-dark(#cdcdcd, #2e2e2e) 0% 25%,
+    light-dark(#bfbfbf, #2a2a2a) 0% 50%
+  );
+  background: var(--bg);
+  background-position:
+    0 0,
+    32px 32px;
+  background-size: 64px 64px;
+}

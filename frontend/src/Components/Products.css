@@ -10,15 +10,12 @@
 
 .products ul {
   display: grid;
-
   grid-template-columns: repeat(auto-fit, minmax(215px, 1fr));
   gap: 3.2rem 3.5rem;
-
-  /* 1.2rem */
-
   width: 70%;
   margin: 45px;
   content-visibility: auto;
+  list-style: none;
 }
 
 .products li {
@@ -29,11 +26,13 @@
   background: #cacaca;
   border: 6px solid #000;
   box-shadow: 12px 12px 0 #000;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
+  position: relative;
 
   view-timeline-name: --item;
   view-timeline-axis: block;
-
   animation-timeline: --item;
   animation-timing-function: ease;
   animation-name: show;
@@ -48,18 +47,13 @@
     box-shadow: 17px 17px 0 #000;
   }
 
-  /* alimento , condimento , higiene , alcohol ,charcuteria */
-
+  /* Estilos por categoría (Alimento, Condimento, etc.) */
   &[tipo="alimento"] {
     background-color: white;
-    background-image: linear-gradient(
-        90deg,
-        rgba(200, 0, 0, 0.5) 50%,
-        transparent 50%
-      ),
+    background-image:
+      linear-gradient(90deg, rgba(200, 0, 0, 0.5) 50%, transparent 50%),
       linear-gradient(rgba(200, 0, 0, 0.5) 50%, transparent 50%);
     background-size: 50px 50px;
-
     & strong {
       background: #fefefe33;
       backdrop-filter: blur(15px);
@@ -71,10 +65,10 @@
     --s: 160px;
     --c1: #d70f0f;
     --c2: #fffceb;
-
     --_g: var(--s) var(--s)
       radial-gradient(var(--c1) 17%, var(--c2) 18% 35%, #0000 36.5%);
-    background: calc(var(--s) / -4) calc(var(--s) / -4) / var(--_g),
+    background:
+      calc(var(--s) / -4) calc(var(--s) / -4) / var(--_g),
       calc(var(--s) / 4) calc(var(--s) / 4) / var(--_g),
       radial-gradient(var(--c2) 34%, var(--c1) 36% 68%, #0000 70%) 0 0 /
         calc(var(--s) / 2) calc(var(--s) / 2),
@@ -84,32 +78,28 @@
           var(--c2) 0 37.5%
         )
         0 0 / var(--s) var(--s);
-
     & strong {
       background-color: #fefefe88;
       backdrop-filter: blur(5px);
       color: #222;
-
       font-size: clamp(20px, 23px, 25px);
     }
-
     & h2 {
       display: inline;
       background: #fefefe;
       border: solid #000 2px;
-
       padding: 7px;
     }
   }
 
   &[tipo="higiene"] {
-    --s: 82px; /* control the size*/
+    --s: 82px;
     --c1: #b2b2b2;
     --c2: #ffffff;
     --c3: #d9d9d9;
-
     --_g: var(--c3) 0 120deg, #0000 0;
-    background: conic-gradient(from -60deg at 50% calc(100% / 3), var(--_g)),
+    background:
+      conic-gradient(from -60deg at 50% calc(100% / 3), var(--_g)),
       conic-gradient(from 120deg at 50% calc(200% / 3), var(--_g)),
       conic-gradient(
         from 60deg at calc(200% / 3),
@@ -129,52 +119,18 @@
     & img {
       box-shadow: 0 0 15px #000;
     }
-
     & strong {
       border-radius: 25px;
       background: #e0e0e0;
-      box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+      box-shadow:
+        20px 20px 60px #bebebe,
+        -20px -20px 60px #ffffff;
     }
   }
 
   &[tipo="alcohol"] {
-    background: radial-gradient(
-          hsl(0, 100%, 27%) 4%,
-          hsl(0, 100%, 18%) 9%,
-          hsla(0, 100%, 20%, 0) 9%
-        )
-        0 0,
-      radial-gradient(
-          hsl(0, 100%, 27%) 4%,
-          hsl(0, 100%, 18%) 8%,
-          hsla(0, 100%, 20%, 0) 10%
-        )
-        50px 50px,
-      radial-gradient(hsla(0, 100%, 30%, 0.8) 20%, hsla(0, 100%, 20%, 0)) 50px 0,
-      radial-gradient(hsla(0, 100%, 30%, 0.8) 20%, hsla(0, 100%, 20%, 0)) 0 50px,
-      radial-gradient(hsla(0, 100%, 20%, 1) 35%, hsla(0, 100%, 20%, 0) 60%) 50px
-        0,
-      radial-gradient(hsla(0, 100%, 20%, 1) 35%, hsla(0, 100%, 20%, 0) 60%)
-        100px 50px,
-      radial-gradient(hsla(0, 100%, 15%, 0.7), hsla(0, 100%, 20%, 0)) 0 0,
-      radial-gradient(hsla(0, 100%, 15%, 0.7), hsla(0, 100%, 20%, 0)) 50px 50px,
-      linear-gradient(
-          45deg,
-          hsla(0, 100%, 20%, 0) 49%,
-          hsla(0, 100%, 0%, 1) 50%,
-          hsla(0, 100%, 20%, 0) 70%
-        )
-        0 0,
-      linear-gradient(
-          -45deg,
-          hsla(0, 100%, 20%, 0) 49%,
-          hsla(0, 100%, 0%, 1) 50%,
-          hsla(0, 100%, 20%, 0) 70%
-        )
-        0 0;
     background-color: #300;
     background-size: 100px 100px;
-
     & strong {
       background-color: #232323;
       color: #cacaca;
@@ -183,55 +139,28 @@
       font-family: "Teko", serif;
       font-weight: bolder;
     }
-
     & h2 {
       display: inline;
       background: #222;
       border: solid #83830b 2px;
-
       padding: 7px;
-    }
-  }
-
-  &[tipo="charcuteria"] {
-    --s: 100px;
-    --c1: #cc2a41;
-    --c2: #351330;
-
-    --_g: #0000 24%, var(--c2) 26% 34%, var(--c1) 36% 44%, var(--c2) 46% 54%,
-      var(--c1) 56% 64%, var(--c2) 66% 74%, #0000 76%;
-    background: radial-gradient(100% 100% at 100% 0, var(--_g)),
-      radial-gradient(100% 100% at 0 100%, var(--_g)),
-      radial-gradient(var(--c2) 14%, var(--c1) 16%) calc(var(--s) / 2)
-        calc(var(--s) / 2);
-    background-size: var(--s) var(--s);
-
-    & strong {
-      background-color: #23232388;
-      color: #fefefe;
-      font-size: clamp(20px, 23px, 25px);
-      backdrop-filter: blur(5px);
-    }
-
-    & h2 {
-      color: #fefefe;
-      display: inline;
-      background-color: #23232388;
-      padding: 7px;
+      color: #fff;
     }
   }
 }
 
-.products h2 {
-  color: #000;
-
-  &[price*="."] {
-    color: #127512;
-  }
-}
-
-.products h3 {
-  margin: 0;
+/* Badge de tipo de venta (Unidad, Kg) */
+.badge-tipo {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #000;
+  color: #fff;
+  padding: 2px 8px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  border: 2px solid #fff;
+  z-index: 10;
 }
 
 .products strong {
@@ -239,10 +168,33 @@
   font-weight: 800;
   color: #000;
   text-transform: uppercase;
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   display: block;
-  position: relative;
-  overflow: hidden;
+}
+
+.price-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.products h2 {
+  margin: 0;
+  color: #000;
+  font-family: "Teko", serif;
+  font-size: 2rem;
+  &[price*="."] {
+    color: #127512;
+  }
+}
+
+.bs-text {
+  font-weight: 700;
+  font-size: 0.9rem;
+  background: #000;
+  color: #fff;
+  padding: 2px 6px;
 }
 
 .products img {
@@ -258,20 +210,21 @@
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease-in-out;
+  width: 100%;
 }
+
+.boton-producto svg {
+  width: 24px;
+  height: 24px;
+}
+
 .boton-producto:hover {
   box-shadow: 0px 0px 57px 0px rgba(45, 255, 196, 1);
-  transition: 0.3s ease-in-out;
-}
-.boton-producto:focus,
-.boton-producto:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
 @keyframes show {

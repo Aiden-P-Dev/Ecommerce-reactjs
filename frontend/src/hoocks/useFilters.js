@@ -5,21 +5,28 @@ export function useFilters() {
   const { filters, setFilters } = useContext(FiltersContext);
 
   const filterProducts = (products) => {
+    if (!products) return [];
+
     return products.filter((product) => {
-      const matchesMinPrice = product.price >= filters.minPrice;
+      const matchesPrice = product.price >= filters.minPrice;
+
       const matchesCategory =
         filters.category === "all" || product.category === filters.category;
 
-      let matchesSearch = true;
-      if (filters.searchTerm && filters.searchTerm !== "") {
-        const searchTerm = filters.searchTerm.toLowerCase();
-        const title = (product.title || "").toLowerCase();
-        const category = (product.category || "").toLowerCase();
-        matchesSearch =
-          title.includes(searchTerm) || category.includes(searchTerm);
-      }
+      const normalize = (text) =>
+        text
+          ?.toString()
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .trim() || "";
 
-      return matchesMinPrice && matchesCategory && matchesSearch;
+      const search = normalize(filters.searchTerm);
+      const title = normalize(product.title);
+
+      const matchesSearch = search === "" || title.includes(search);
+
+      return matchesPrice && matchesCategory && matchesSearch;
     });
   };
 

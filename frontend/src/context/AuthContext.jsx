@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
-import { supabase } from "../supabaseClient.js"; // Asegúrate de tener este archivo configurado
+import { supabase } from "../lib/supabaseClient.js";
 
 export const AuthContext = createContext();
 
@@ -16,10 +16,9 @@ export const AuthProvider = ({ children }) => {
   const [errors, setErrors] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 1. Registro (Signup)
   const signup = async (userData) => {
     try {
-      console.log("Intentando registrar a:", userData.email); // Debug
+      console.log("Intentando registrar a:", userData.email);
       const { data, error } = await supabase.auth.signUp({
         email: userData.email.toLowerCase(),
         password: userData.password,
@@ -30,7 +29,7 @@ export const AuthProvider = ({ children }) => {
         throw error;
       }
 
-      console.log("Registro exitoso, datos:", data); // Debug
+      console.log("Registro exitoso, datos:", data);
 
       if (data.user) {
         setUser(data.user);
@@ -42,7 +41,6 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // 2. Inicio de Sesión (Signin)
   const signin = async (userData) => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({
@@ -56,19 +54,16 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
       setErrors([]);
     } catch (error) {
-      // Manejo de errores igual al anterior para no romper tu UI
       setErrors([error.message]);
     }
   };
 
-  // 3. Cierre de Sesión (Logout)
   const logout = async () => {
     await supabase.auth.signOut();
     setUser(null);
     setIsAuthenticated(false);
   };
 
-  // Limpiador de errores (Timer de 5 segundos)
   useEffect(() => {
     if (errors.length > 0) {
       const timer = setTimeout(() => {
@@ -78,9 +73,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [errors]);
 
-  // 4. Verificación de sesión en tiempo real (Reemplaza a Cookies)
   useEffect(() => {
-    // Verificar sesión inicial
     const checkSession = async () => {
       const {
         data: { session },
@@ -94,7 +87,6 @@ export const AuthProvider = ({ children }) => {
 
     checkSession();
 
-    // Escuchar cambios en el estado (login/logout/refresh)
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {

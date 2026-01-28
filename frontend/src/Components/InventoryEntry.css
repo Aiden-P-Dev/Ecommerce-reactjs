@@ -1,0 +1,63 @@
+.inventory-entry-container {
+  width: 100%;
+}
+
+.entry-card {
+  background: light-dark(#ffffff, #1e2227);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #27ae60;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.entry-card h3 {
+  margin: 0 0 5px 0;
+  color: #27ae60;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.2rem;
+}
+
+.entry-description {
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 15px;
+}
+
+.search-box-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.entry-inputs-row {
+  display: flex;
+  gap: 10px;
+}
+
+.qty-input {
+  max-width: 100px;
+}
+
+.btn-entry-submit {
+  flex-grow: 1;
+  background: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-create-link {
+  background: transparent;
+  color: #27ae60;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 0.8rem;
+  margin-top: 10px;
+  padding: 0;
+}

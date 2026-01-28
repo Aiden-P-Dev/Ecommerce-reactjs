@@ -1,0 +1,171 @@
+.user-manager-container {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.user-table-wrapper {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.user-table th {
+  background: #f8f9fa;
+  padding: 15px;
+  font-size: 0.9rem;
+  color: #666;
+}
+.user-table td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.user-info-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.user-avatar {
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(49deg, #1890ff, #28a745);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.status-badge.activo {
+  background: #e6ffed;
+  color: #28a745;
+}
+.status-badge.suspendido {
+  background: #ffeef0;
+  color: #d73a49;
+}
+
+.btn-suspend {
+  background: none;
+  border: 1px solid #d73a49;
+  color: #d73a49;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.btn-activate {
+  background: #4fda86;
+  border: none;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.row-disabled {
+  background: #fafafa;
+  opacity: 0.8;
+}
+
+.user-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-action-role {
+  background: #f0f2f5;
+  border: 1px solid #d9d9d9;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.btn-action-role:hover {
+  background: #e6f7ff;
+  border-color: #91d5ff;
+}
+
+.btn-action-delete {
+  background: #fff1f0;
+  border: 1px solid #ffa39e;
+  color: #cf1322;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-action-delete:hover {
+  background: #ff4d4f;
+  color: white;
+}
+
+/* Botón de Restablecer Contraseña */
+.btn-action-reset {
+  background: #e6f7ff;
+  border: 1px solid #91d5ff;
+  color: #1890ff;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: 0.3s;
+}
+
+.btn-action-reset:hover {
+  background: #1890ff;
+  color: white;
+}
+
+/* Caja de Alertas */
+.alert-box {
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: bold;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.alert-box.success {
+  background: #f6ffed;
+  border: 1px solid #b7eb8f;
+  color: #389e0d;
+}
+
+.alert-box.error {
+  background: #fff1f0;
+  border: 1px solid #ffa39e;
+  color: #cf1322;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Ajustes adicionales para botones */
+.user-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}

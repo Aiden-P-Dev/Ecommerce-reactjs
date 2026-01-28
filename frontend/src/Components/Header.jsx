@@ -3,7 +3,6 @@ import "./Header.css";
 import { Link } from "react-router-dom";
 
 import imagen2 from "./Img/LogoCari.png";
-// C:\Users\user\Desktop\Practicas Pequeñas Definitive Edition\React\Programa_principalV9 este es para subirlo aunque sea server local\frontend\src\Components\Img\LogoCari.png.png
 
 export function Header() {
   return (

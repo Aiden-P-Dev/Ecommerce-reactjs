@@ -19,20 +19,19 @@ function GoogleImageSearch() {
     try {
       const response = await fetch(
         `https://www.googleapis.com/customsearch/v1?key=${GOOGLE_API_KEY}&cx=${GOOGLE_CSE_ID}&q=${encodeURIComponent(
-          query
-        )}&searchType=image&num=4`
+          query,
+        )}&searchType=image&num=4`,
       );
 
       if (!response.ok) {
         throw new Error(
-          `Error HTTP: ${response.status} ${response.statusText}`
+          `Error HTTP: ${response.status} ${response.statusText}`,
         );
       }
 
       const data = await response.json();
 
       if (data.items && data.items.length > 0) {
-        // Los resultados de imágenes están en data.items
         const urls = data.items.map((item) => ({
           content_url: item.link,
           description: item.title || "Imagen sin descripción",
@@ -40,13 +39,13 @@ function GoogleImageSearch() {
         setImageResults(urls);
       } else {
         setError(
-          "No se encontraron imágenes en Google para esa palabra clave."
+          "No se encontraron imágenes en Google para esa palabra clave.",
         );
       }
     } catch (err) {
       console.error("Error al buscar imágenes en Google CSE:", err);
       setError(
-        `Error al buscar imágenes: ${err.message}. Verifica tu clave API, ID del motor de búsqueda y que la Búsqueda de Imágenes esté habilitada.`
+        `Error al buscar imágenes: ${err.message}. Verifica tu clave API, ID del motor de búsqueda y que la Búsqueda de Imágenes esté habilitada.`,
       );
     } finally {
       setLoading(false);

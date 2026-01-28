@@ -1,22 +1,9 @@
-import { useId } from "react";
-import "./Filters.css";
 import { useFilters } from "../hoocks/useFilters";
 import { Cart } from "./Cart.jsx";
-import "./Barrabusqueda.css";
+import "./Filters.css";
 
 export function Filters() {
   const { filters, setFilters } = useFilters();
-
-  const minPriceFilterId = useId();
-  const categoryFilterId = useId();
-  const searchFilterId = useId();
-
-  const handleChangeCategory = (event) => {
-    setFilters((prevState) => ({
-      ...prevState,
-      category: event.target.value,
-    }));
-  };
 
   const handleSearch = (event) => {
     setFilters((prevState) => ({
@@ -25,32 +12,37 @@ export function Filters() {
     }));
   };
 
+  const handleChangeCategory = (event) => {
+    setFilters((prevState) => ({
+      ...prevState,
+      category: event.target.value,
+    }));
+  };
+
   return (
     <section className="filters">
       <div className="cart_div">
         <Cart />
       </div>
+
       <div className="input__container">
         <div className="shadow__input">
           <input
-            id={searchFilterId}
             type="text"
             className="input__search"
-            placeholder="QUE NECESITAS"
+            placeholder="BUSCAR PRODUCTO..."
             value={filters.searchTerm}
             onChange={handleSearch}
           />
         </div>
       </div>
+
       <div className="filter_div">
-        <label htmlFor={categoryFilterId}>Categorías</label>
-        <select id={categoryFilterId} onChange={handleChangeCategory}>
+        <label>Categoría</label>
+        <select onChange={handleChangeCategory} value={filters.category}>
           <option value="all">Todo</option>
           <option value="alimento">Alimentos</option>
-          <option value="condimento">Condimentos</option>
-          <option value="higiene">Higiene</option>
-          <option value="alcohol">Bebidas</option>
-          <option value="charcuteria">Charcuteria</option>
+          <option value="charcuteria">Charcutería</option>
         </select>
       </div>
     </section>

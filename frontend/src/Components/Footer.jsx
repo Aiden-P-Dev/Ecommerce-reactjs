@@ -5,9 +5,5 @@ import "./Footer.css";
 export function Footer() {
   const { filters } = useFilters();
 
-  return (
-    <footer className="footer">
-      <a>Ayuda</a>
-    </footer>
-  );
+  return <footer className="footer"></footer>;
 }

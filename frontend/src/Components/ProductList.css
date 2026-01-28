@@ -1,0 +1,223 @@
+.Product-list {
+  width: clamp(400px, 109.9%, 98.7dvw);
+  height: 100dvh;
+  margin: 0 auto;
+  --bg: repeating-conic-gradient(
+    light-dark(#cdcdcd, #2e2e2e) 0% 25%,
+    light-dark(#bfbfbf, #2a2a2a) 0% 50%
+  );
+  background: var(--bg);
+  background-position:
+    0 0,
+    32px 32px;
+  background-size: 64px 64px;
+}
+
+.Product-grid {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.Title-list {
+  font-size: 30px;
+}
+
+.grid-container {
+  padding: 20px;
+  border-radius: 20px;
+  background: light-dark(#bfbfbf, #222831);
+  color: light-dark(#222831, #bfbfbf);
+  overflow-y: scroll;
+  scrollbar-color: light-dark(rgba(255, 255, 47, 1), rgba(0, 224, 136, 1))
+    light-dark(transparent, transparent);
+  scrollbar-width: auto;
+  scrollbar-gutter: stable;
+  border-image: linear-gradient(
+      33deg,
+      light-dark(rgba(89, 74, 10, 1), rgba(0, 26, 99, 1)) 0%,
+      light-dark(rgba(89, 74, 10, 1), rgba(0, 26, 99, 1)) 14.286%,
+      light-dark(rgba(159, 92, 13, 1), rgba(0, 44, 103, 1)) 14.286%,
+      light-dark(rgba(159, 92, 13, 1), rgba(0, 44, 103, 1)) 28.571%,
+      light-dark(rgba(227, 118, 18, 1), rgba(0, 44, 103, 1)) 28.571%,
+      light-dark(rgba(227, 118, 18, 1), rgba(0, 70, 108, 1)) 42.857%,
+      light-dark(rgba(255, 150, 24, 1), rgba(0, 102, 114, 1)) 42.857%,
+      light-dark(rgba(255, 150, 24, 1), rgba(0, 102, 114, 1)) 57.143%,
+      light-dark(rgba(255, 188, 31, 1), rgba(0, 140, 121, 1)) 57.143%,
+      light-dark(rgba(255, 188, 31, 1), rgba(0, 140, 121, 1)) 71.429%,
+      light-dark(rgba(255, 230, 39, 1), rgba(0, 182, 128, 1)) 71.429%,
+      light-dark(rgba(255, 230, 39, 1), rgba(0, 182, 128, 1)) 85.714%,
+      light-dark(rgba(255, 255, 47, 1), rgba(0, 224, 136, 1)) 85.714% 100%
+    )
+    1 0 0 1 / 5px 0px 0px 5px / 2px round;
+  transition: 0.5s ease-in-out;
+  /* box-shadow: 9px 9px 0px #1d222a, -9px -9px 0px #272e38; */
+}
+
+.Grid-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  overflow: auto;
+  width: 90dvw;
+  height: 70dvh;
+  gap: 20px;
+}
+
+.item-list {
+  background: #fff;
+  padding: 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.img-list {
+  width: 145px;
+  aspect-ratio: 1/1;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.container-info {
+  background: light-dark(#bfbfbf, #222831);
+
+  height: 18vh;
+  width: 100%;
+  margin: 5px 0px 0px 0px;
+}
+
+.info-title {
+  font-size: 1.2em;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.title-info {
+  font-size: 20px;
+}
+
+.category-info {
+  font-size: 18px;
+  margin: 0 0 5px 0;
+  color: #555;
+}
+
+.price-info {
+  margin: 0;
+  color: #9ba6a5;
+  font-size: 1.5em;
+}
+
+.btn-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.btn-edit {
+  background-color: #f0ad4e;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-save {
+  background-color: #4fda86;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.edit-input {
+  width: 100%;
+  margin-bottom: 5px;
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Contenedor de filtros */
+.filters-container {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  min-width: 250px;
+  outline: none;
+}
+
+.category-select {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Botones y Edición */
+.btn-group {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.btn-edit {
+  background: #f0ad4e;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-delete {
+  background: #d9534f;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-save {
+  background: #4fda86;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.btn-cancel {
+  background: #777;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.edit-input {
+  width: 100%;
+  padding: 6px;
+  margin-bottom: 5px;
+  border: 1px solid #4fda86;
+  border-radius: 4px;
+}
+
+.stock-info {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: bold;
+}

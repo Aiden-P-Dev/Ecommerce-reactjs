@@ -1,19 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import "./Main.css";
-// import "../viewtransition.css";
-
-// import imagen1 from "./Components/Img/Open Peeps - Avatar.png";
+import { useAuth } from "../context/AuthContext";
 import imagen1 from "./Img/Avatar.png";
 
 export const Menuprincipal = () => {
+  const { user, isAuthenticated, logout } = useAuth();
+
+  const isAdmin = isAuthenticated && user?.email === "admin@admin.com";
+
   return (
-    <div className="el-caribeno">
-      <div>
+    <div className="el-caribeno" id="el-caribeno">
+      <header>
         <div className="HEADER-content">
           <div className="logo">
             <img src={imagen1} alt="Logo de El Caribeño" />
-
             <h1>El Caribeño</h1>
           </div>
           <nav>
@@ -28,20 +28,38 @@ export const Menuprincipal = () => {
                 <a href="#services">Servicios</a>
               </li>
 
-              <li>
-                <Link to="./login" className="btn">
-                  Ingresar
-                </Link>
-              </li>
-              <li>
-                <Link to="./signup" className="btn">
-                  Registrarse
-                </Link>
-              </li>
+              {isAdmin && (
+                <li>
+                  <Link to="/admin-panel" className="btnAdmin">
+                    ADMIN PANEL
+                  </Link>
+                </li>
+              )}
+
+              {!isAuthenticated ? (
+                <>
+                  <li>
+                    <Link to="/login" className="btn">
+                      Ingresar
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/signup" className="btn">
+                      Registrarse
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <li>
+                  <button onClick={logout} className="btnlogout">
+                    Cerrar Sesión
+                  </button>
+                </li>
+              )}
             </ul>
           </nav>
         </div>
-      </div>
+      </header>
 
       <main>
         <section id="home" className="hero">

@@ -1,38 +1,53 @@
-import {createContext, useReducer, } from 'react'
-import { cartReducer, cartInitialState } from '../reducers/cart.js'
+import { createContext, useReducer } from "react";
+import {
+  cartReducer,
+  cartInitialState,
+  CART_ACTION_TYPES,
+} from "../reducers/cart.js";
 
-export const CartContext = createContext()
+export const CartContext = createContext();
 
-function useCartReducer () {
-  const [state, dispatch] = useReducer(cartReducer, cartInitialState)
+function useCartReducer() {
+  const [state, dispatch] = useReducer(cartReducer, cartInitialState);
 
-  const addToCart = product => dispatch({
-    type: 'ADD_TO_CART',
-    payload: product
-  })
+  const addToCart = (product) =>
+    dispatch({
+      type: CART_ACTION_TYPES.ADD_TO_CART,
+      payload: product,
+    });
 
-  const removeFromCart = product => dispatch({
-    type: 'REMOVE_FROM_CART',
-    payload: product
-  })
+  const removeFromCart = (product) =>
+    dispatch({
+      type: CART_ACTION_TYPES.REMOVE_FROM_CART,
+      payload: product,
+    });
 
-  const clearCart = () => dispatch({ type: 'CLEAR_CART' })
+  const updateCartItem = (id, updates) =>
+    dispatch({
+      type: CART_ACTION_TYPES.UPDATE_CART_ITEM,
+      payload: { id, updates },
+    });
 
-  return { state, addToCart, removeFromCart, clearCart }
+  const clearCart = () => dispatch({ type: CART_ACTION_TYPES.CLEAR_CART });
+
+  return { state, addToCart, removeFromCart, updateCartItem, clearCart };
 }
 
-export  function CartProvider({ children }) {
-  const {state, addToCart , removeFromCart, clearCart} = useCartReducer()
+export function CartProvider({ children }) {
+  const { state, addToCart, removeFromCart, updateCartItem, clearCart } =
+    useCartReducer();
 
-    return (
-    <CartContext.Provider value={{
-      cart: state,
-      addToCart,
-      removeFromCart,
-      clearCart
+  return (
+    <CartContext.Provider
+      value={{
+        cart: state,
+        addToCart,
+        removeFromCart,
+        updateCartItem,
+        clearCart,
       }}
-      >
-        {children}
+    >
+      {children}
     </CartContext.Provider>
-  )
+  );
 }
