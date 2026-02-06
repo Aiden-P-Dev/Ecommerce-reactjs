@@ -18,33 +18,31 @@ export const AuthProvider = ({ children }) => {
 
   const signup = async (userData) => {
     try {
-      console.log("Intentando registrar a:", userData.email);
+      setErrors([]);
+
       const { data, error } = await supabase.auth.signUp({
-        email: userData.email.toLowerCase(),
+        email: userData.email.toLowerCase().trim(),
         password: userData.password,
       });
 
-      if (error) {
-        console.error("Error de Supabase detectado:", error.message);
-        throw error;
-      }
-
-      console.log("Registro exitoso, datos:", data);
+      if (error) throw error;
 
       if (data.user) {
         setUser(data.user);
+
         setIsAuthenticated(!!data.session);
-        setErrors([]);
       }
     } catch (error) {
+      console.error("Error en Signup:", error.message);
       setErrors([error.message]);
     }
   };
 
   const signin = async (userData) => {
     try {
+      setErrors([]);
       const { data, error } = await supabase.auth.signInWithPassword({
-        email: userData.email.toLowerCase(),
+        email: userData.email.toLowerCase().trim(),
         password: userData.password,
       });
 
@@ -52,16 +50,21 @@ export const AuthProvider = ({ children }) => {
 
       setUser(data.user);
       setIsAuthenticated(true);
-      setErrors([]);
     } catch (error) {
+      console.error("Error en Signin:", error.message);
       setErrors([error.message]);
     }
   };
 
   const logout = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
-    setIsAuthenticated(false);
+    try {
+      await supabase.auth.signOut();
+      setUser(null);
+      setIsAuthenticated(false);
+      setErrors([]);
+    } catch (error) {
+      console.error("Error en Logout:", error.message);
+    }
   };
 
   useEffect(() => {
@@ -74,18 +77,24 @@ export const AuthProvider = ({ children }) => {
   }, [errors]);
 
   useEffect(() => {
-    const checkSession = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      if (session) {
-        setUser(session.user);
-        setIsAuthenticated(true);
+    const initializeAuth = async () => {
+      try {
+        const {
+          data: { session },
+        } = await supabase.auth.getSession();
+
+        if (session) {
+          setUser(session.user);
+          setIsAuthenticated(true);
+        }
+      } catch (err) {
+        console.error("Error inicializando auth:", err);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
-    checkSession();
+    initializeAuth();
 
     const {
       data: { subscription },
@@ -100,7 +109,9 @@ export const AuthProvider = ({ children }) => {
       setLoading(false);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      subscription.unsubscribe();
+    };
   }, []);
 
   return (

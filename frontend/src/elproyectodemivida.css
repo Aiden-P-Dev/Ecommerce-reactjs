@@ -84,11 +84,8 @@ body {
   width: 100%;
   height: 100%;
   inset: 0;
-  background-image: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.1) 1px,
-      transparent 1px
-    ),
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
     linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
   background-size: 20px 20px;
   padding: 3.1rem 2rem;
@@ -183,7 +180,8 @@ li a {
   height: 100%;
   display: flex;
   animation: slide 20s infinite;
-  background: linear-gradient(
+  background:
+    linear-gradient(
         135deg,
         #0000 20.5%,
         light-dark(
@@ -520,11 +518,8 @@ ul {
     width: 100%;
     height: 100%;
     inset: 0;
-    background-image: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0.1) 1px,
-        transparent 1px
-      ),
+    background-image:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
       linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
     background-size: 20px 20px;
     padding: 3.1rem 2rem;
@@ -667,7 +662,8 @@ ul {
 
 .products {
   width: 100%;
-  background: repeating-linear-gradient(
+  background:
+    repeating-linear-gradient(
       90deg,
       light-dark(hsla(196, 0%, 79%, 0.06), hsla(196, 0%, 79%, 0.06)) 0px,
       light-dark(hsla(196, 0%, 79%, 0.06), hsla(196, 0%, 79%, 0.06)) 1px,
@@ -728,7 +724,9 @@ ul {
   background: #cacaca;
   border: 6px solid #000;
   box-shadow: 12px 12px 0 #000;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
 
   view-timeline-name: --item;
   view-timeline-axis: block;
@@ -751,11 +749,8 @@ ul {
 
   &[tipo="alimento"] {
     background-color: white;
-    background-image: linear-gradient(
-        90deg,
-        rgba(200, 0, 0, 0.5) 50%,
-        transparent 50%
-      ),
+    background-image:
+      linear-gradient(90deg, rgba(200, 0, 0, 0.5) 50%, transparent 50%),
       linear-gradient(rgba(200, 0, 0, 0.5) 50%, transparent 50%);
     background-size: 50px 50px;
 
@@ -773,7 +768,8 @@ ul {
 
     --_g: var(--s) var(--s)
       radial-gradient(var(--c1) 17%, var(--c2) 18% 35%, #0000 36.5%);
-    background: calc(var(--s) / -4) calc(var(--s) / -4) / var(--_g),
+    background:
+      calc(var(--s) / -4) calc(var(--s) / -4) / var(--_g),
       calc(var(--s) / 4) calc(var(--s) / 4) / var(--_g),
       radial-gradient(var(--c2) 34%, var(--c1) 36% 68%, #0000 70%) 0 0 /
         calc(var(--s) / 2) calc(var(--s) / 2),
@@ -808,7 +804,8 @@ ul {
     --c3: #d9d9d9;
 
     --_g: var(--c3) 0 120deg, #0000 0;
-    background: conic-gradient(from -60deg at 50% calc(100% / 3), var(--_g)),
+    background:
+      conic-gradient(from -60deg at 50% calc(100% / 3), var(--_g)),
       conic-gradient(from 120deg at 50% calc(200% / 3), var(--_g)),
       conic-gradient(
         from 60deg at calc(200% / 3),
@@ -832,12 +829,15 @@ ul {
     & strong {
       border-radius: 25px;
       background: #e0e0e0;
-      box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
+      box-shadow:
+        20px 20px 60px #bebebe,
+        -20px -20px 60px #ffffff;
     }
   }
 
   &[tipo="alcohol"] {
-    background: radial-gradient(
+    background:
+      radial-gradient(
           hsl(0, 100%, 27%) 4%,
           hsl(0, 100%, 18%) 9%,
           hsla(0, 100%, 20%, 0) 9%
@@ -897,9 +897,11 @@ ul {
     --c1: #cc2a41;
     --c2: #351330;
 
-    --_g: #0000 24%, var(--c2) 26% 34%, var(--c1) 36% 44%, var(--c2) 46% 54%,
+    --_g:
+      #0000 24%, var(--c2) 26% 34%, var(--c1) 36% 44%, var(--c2) 46% 54%,
       var(--c1) 56% 64%, var(--c2) 66% 74%, #0000 76%;
-    background: radial-gradient(100% 100% at 100% 0, var(--_g)),
+    background:
+      radial-gradient(100% 100% at 100% 0, var(--_g)),
       radial-gradient(100% 100% at 0 100%, var(--_g)),
       radial-gradient(var(--c2) 14%, var(--c1) 16%) calc(var(--s) / 2)
         calc(var(--s) / 2);
@@ -1009,11 +1011,8 @@ ul {
     width: 100%;
     height: 100%;
     inset: 0;
-    background-image: linear-gradient(
-        90deg,
-        rgba(255, 255, 255, 0.1) 1px,
-        transparent 1px
-      ),
+    background-image:
+      linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
       linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
     background-size: 20px 20px;
     padding: 3.1rem 2rem;
@@ -1025,7 +1024,9 @@ ul {
   padding: 10px;
   border-radius: 50px;
   background: linear-gradient(145deg, #e2e2e2, #bebebe);
-  box-shadow: 20px 20px 60px #b3b3b3, -20px -20px 60px #f3f3f3;
+  box-shadow:
+    20px 20px 60px #b3b3b3,
+    -20px -20px 60px #f3f3f3;
 }
 
 .form {
@@ -1144,11 +1145,8 @@ ul {
   width: 100%;
   height: 100%;
   inset: 0;
-  background-image: linear-gradient(
-      90deg,
-      rgba(255, 255, 255, 0.1) 1px,
-      transparent 1px
-    ),
+  background-image:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
     linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
   background-size: 20px 20px;
   padding: 3.1rem 2rem;
@@ -1216,7 +1214,8 @@ ul {
 
   --color: rgba(114, 114, 114, 0.3);
   background-color: #191a1a;
-  background-image: linear-gradient(
+  background-image:
+    linear-gradient(
       0deg,
       transparent 24%,
       var(--color) 25%,
@@ -1353,11 +1352,8 @@ select {
   }
 
   option:nth-child(2) {
-    background: linear-gradient(
-        90deg,
-        rgba(200, 0, 0, 0.5) 50%,
-        transparent 50%
-      ),
+    background:
+      linear-gradient(90deg, rgba(200, 0, 0, 0.5) 50%, transparent 50%),
       linear-gradient(rgba(200, 0, 0, 0.5) 50%, transparent 50%);
     background-size: 50px 50px;
   }
@@ -1450,7 +1446,8 @@ select {
     light-dark(#2f89c5, #7d3d3d),
     light-dark(#38a3ea, #973e3e)
   );
-  box-shadow: 20px 20px 60px light-dark(#2c81ba, #a18989),
+  box-shadow:
+    20px 20px 60px light-dark(#2c81ba, #a18989),
     -20px -20px 60px light-dark(#3caffc, #a18989);
 
   border-radius: 9999px;
@@ -1553,7 +1550,9 @@ select {
 
 .input__container:hover {
   transform: rotateX(5deg) rotateY(1 deg) scale(1.05);
-  box-shadow: 25px 25px 0 -5px #e9b50b, 25px 25px 0 0 #000;
+  box-shadow:
+    25px 25px 0 -5px #e9b50b,
+    25px 25px 0 0 #000;
 }
 
 .shadow__input {
