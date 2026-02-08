@@ -96,9 +96,11 @@ body {
   font-size: 1.5rem;
   font-weight: bold;
   display: flex;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  align-items: flex-start;
 
   img {
     width: 77px;
@@ -109,7 +111,55 @@ body {
     font-size: clamp(24px, 2rem, 4rem);
     color: var(--text-color-titulo);
   }
+
+  .Titulo-Caribeño {
+    width: clamp(178px, 14rem, 262px);
+    height: 100px;
+    & text {
+      stroke: #000;
+      stroke-width: 1;
+      stroke-dasharray: 200;
+      stroke-dashoffset: 200;
+      fill: #fff0;
+      font-size: clamp(2rem, 4dvw, 120px);
+      font-family: Arial, Helvetica, sans-serif;
+      animation: 4s dibujo forwards;
+    }
+  }
 }
+
+@keyframes dibujo {
+  70% {
+    fill: #fff0;
+  }
+
+  90% {
+    stroke-dashoffset: 0;
+    fill: #fff;
+  }
+
+  100% {
+    fill: #fff;
+  }
+}
+
+.Logo-Caribeño {
+  width: 90%;
+  height: 100px;
+  /* translate: clamp(-180px, -223px, -400%) 10%;
+  position: absolute; */
+  & path {
+    stroke: #000;
+    stroke-width: 1;
+    stroke-dasharray: 200;
+    stroke-dashoffset: 200;
+    fill: #fff0;
+    font-size: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    animation: 4.5s dibujo2 forwards;
+  }
+}
+
 nav ul {
   list-style: none;
   display: flex;
@@ -365,7 +415,7 @@ li a {
   border-radius: 45px;
 }
 .about-image img {
-  max-width: 100%;
+  max-width: clamp(181px, 71dvw, 747px);
   border-radius: 10px;
   /* background: #0001; */
 }
@@ -1327,38 +1377,128 @@ ul {
   }
 }
 
+.filters {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.filters > div {
+  display: flex;
+  justify-items: center;
+  gap: 1rem;
+}
+
+.filters > div label {
+  color: #fff;
+  font-size: 25px;
+}
+
+.filter_div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5px;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- BLOQUE SELECT UNIFICADO --- */
 select {
+  /* Colores y bordes */
   background-color: light-dark(#2ecc71, rgba(192, 160, 104));
   color: #fefefe;
   border-radius: 25px;
   border: none;
-  text-align: center;
-  width: clamp(125px, 175px, 180px);
-  height: 30px;
-  /* transition: 5s ease; */
-  margin: 0 0 15px 0;
-  font-size: x-large;
 
+  /* Tipografía y alineación */
+  text-align: center;
+  font-size: x-large;
+  cursor: pointer;
+
+  /* Dimensiones */
+  width: clamp(125px, 175px, 180px);
+  height: 35px;
+  margin: 0 0 15px 0;
+
+  /* Posicionamiento Grid (según tu código) */
   display: grid;
   grid-area: 1 / 2 / 2 / 3;
   justify-content: center;
   justify-items: center;
 
-  & option:nth-child(2) {
-    width: 125px;
-  }
-  & option:active:nth-child(3) {
-    width: 175px;
-  }
-
-  option:nth-child(2) {
-    background:
-      linear-gradient(90deg, rgba(200, 0, 0, 0.5) 50%, transparent 50%),
-      linear-gradient(rgba(200, 0, 0, 0.5) 50%, transparent 50%);
-    background-size: 50px 50px;
-  }
+  /* Reset nativo para que el border-radius NO se quite al hacer click */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  outline: none;
 }
 
+/* Forzar el mantenimiento del estilo en estados activos */
+select:focus,
+select:hover,
+select:active {
+  border-radius: 25px;
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+/* --- ESTILOS DE LAS OPCIONES --- */
+select option {
+  background-color: light-dark(#2ecc71, rgba(192, 160, 104));
+  color: white;
+  font-size: 18px;
+  text-align: center;
+}
+
+/* Tu diseño de gradiente para la segunda opción */
+select option:nth-child(2) {
+  width: 125px;
+  background:
+    linear-gradient(90deg, rgba(200, 0, 0, 0.5) 50%, transparent 50%),
+    linear-gradient(rgba(200, 0, 0, 0.5) 50%, transparent 50%);
+  background-size: 50px 50px;
+}
+
+/* Ancho dinámico para la tercera opción activa */
+select option:active:nth-child(3) {
+  width: 175px;
+}
+
+/* --- RESPONSIVE --- */
+@media screen and (max-width: 890px) {
+  .filters {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 30px;
+    justify-items: center;
+  }
+
+  .filters .cart_div {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+
+  .filters .input__container {
+    grid-area: 2 / 1 / 3 / 3;
+    margin: 15px auto;
+  }
+
+  .filters .filter_div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .filters label {
+    color: #fff;
+    font-size: clamp(15px, 20px, 25px);
+  }
+}
 /* filter final */
 
 /* cart inicio */

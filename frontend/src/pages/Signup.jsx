@@ -134,7 +134,7 @@ export const Signup = () => {
         <div className="footer-links">
           <span>Ya tiene una cuenta? </span>
           <Link to="/login" className="link-text">
-            Log In
+            Ingrese
           </Link>
         </div>
       </form>

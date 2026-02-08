@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import imagen1 from "./Img/Avatar.png";
-
+import { Logosvg } from "../Components/Icons";
 export const Menuprincipal = () => {
   const { user, isAuthenticated, logout } = useAuth();
 
@@ -14,7 +14,11 @@ export const Menuprincipal = () => {
         <div className="HEADER-content">
           <div className="logo">
             <img src={imagen1} alt="Logo de El Caribeño" />
-            <h1>El Caribeño</h1>
+            <svg className="Titulo-Caribeño">
+              <text x="50%" y="50%" textAnchor="middle">
+                El Caribeño
+              </text>
+            </svg>
           </div>
           <nav>
             <ul>

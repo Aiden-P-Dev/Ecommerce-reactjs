@@ -6,7 +6,6 @@ import Pdf from "./Pdf.jsx";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { supabase } from "../lib/supabaseClient.js";
 
-// Íconos auxiliares
 const RemoveIcon = () => (
   <svg
     width="18"
@@ -37,22 +36,19 @@ function CartItem({
 
   return (
     <li className="cart-item">
-      {/* Parte superior: Imagen e Información */}
       <div className="cart-item-main">
         <img src={product.thumbnail} alt={product.title} />
-
         <div className="cart-item-info">
           <strong>{product.title}</strong>
           <p className="cart-item-price">${product.price}</p>
-
           <select
             className="sale-type-select"
             value={product.tipo_venta_seleccionado || opcionesVenta[0]}
-            onChange={(e) => {
+            onChange={(e) =>
               updateCartItem(product.id, {
                 tipo_venta_seleccionado: e.target.value,
-              });
-            }}
+              })
+            }
           >
             {opcionesVenta.map((opcion, index) => (
               <option key={index} value={opcion}>
@@ -63,7 +59,6 @@ function CartItem({
         </div>
       </div>
 
-      {/* Parte inferior: Ajuste de cantidad y Botón eliminar */}
       <footer className="cart-item-footer">
         <div className="cart-item-actions">
           <button
@@ -82,7 +77,6 @@ function CartItem({
             +
           </button>
         </div>
-
         <button
           className="btn-remove-full"
           type="button"
@@ -108,7 +102,6 @@ export function Cart() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [tasaDolar, setTasaDolar] = useState(0);
 
-  // Cargar tasa del dólar desde Supabase
   useEffect(() => {
     const fetchTasa = async () => {
       const { data } = await supabase
@@ -121,7 +114,6 @@ export function Cart() {
     fetchTasa();
   }, []);
 
-  // Calcular total
   const totalUSD = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0,
@@ -130,34 +122,27 @@ export function Cart() {
   const handleSaleAndPdf = async () => {
     if (cart.length === 0) return;
     setIsProcessing(true);
-
     try {
-      // Descontar Stock en Supabase
       for (const item of cart) {
         const { data: p } = await supabase
           .from("productos")
           .select("stock")
           .eq("id", item.id)
           .single();
-
         const nuevoStock = (p?.stock || 0) - item.quantity;
-
         await supabase
           .from("productos")
           .update({ stock: nuevoStock })
           .eq("id", item.id);
       }
-
-      // Simular proceso y limpiar
       setTimeout(() => {
         clearCart();
         setIsProcessing(false);
         alert("¡Venta procesada con éxito!");
       }, 2000);
     } catch (err) {
-      console.error("Error en la transacción:", err);
+      console.error(err);
       setIsProcessing(false);
-      alert("Hubo un error al procesar la venta.");
     }
   };
 
@@ -167,10 +152,23 @@ export function Cart() {
         <CartIcon />
         {cart.length > 0 && <span className="cart-badge">{cart.length}</span>}
       </label>
-      <input id={cartCheckboxId} type="checkbox" hidden />
+      <input
+        id={cartCheckboxId}
+        type="checkbox"
+        hidden
+        className="cart-input-check"
+      />
+
+      {/* Capa para cerrar el carrito tocando fuera */}
+      <label className="cart-overlay" htmlFor={cartCheckboxId}></label>
 
       <aside className="cart">
-        <h2 className="cart-title">RESUMEN</h2>
+        <div className="cart-header">
+          <h2 className="cart-title">RESUMEN</h2>
+          <label className="close-aside" htmlFor={cartCheckboxId}>
+            ✕
+          </label>
+        </div>
 
         {cart.length === 0 ? (
           <div className="empty-cart-container">
@@ -206,7 +204,6 @@ export function Cart() {
             <PDFDownloadLink
               document={<Pdf cart={cart} tasaDolar={tasaDolar} />}
               fileName="Comprobante_El_Caribeno.pdf"
-              style={{ textDecoration: "none" }}
             >
               {({ loading }) => (
                 <button

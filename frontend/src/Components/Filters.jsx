@@ -1,9 +1,39 @@
+import { useState, useEffect } from "react";
 import { useFilters } from "../hoocks/useFilters";
 import { Cart } from "./Cart.jsx";
+import { supabase } from "../lib/supabaseClient.js";
 import "./Filters.css";
 
 export function Filters() {
   const { filters, setFilters } = useFilters();
+  const [categories, setCategories] = useState([]);
+
+  // Cargar categorías dinámicas desde Supabase
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const { data, error } = await supabase
+          .from("productos")
+          .select("category");
+
+        if (error) throw error;
+
+        if (data) {
+          // Extraer solo los nombres únicos de las categorías
+          const uniqueCategories = [
+            ...new Set(data.map((item) => item.category).filter(Boolean)),
+          ];
+
+          // Ordenarlas alfabéticamente para que el menú sea profesional
+          setCategories(uniqueCategories.sort());
+        }
+      } catch (err) {
+        console.error("Error obteniendo categorías:", err);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const handleSearch = (event) => {
     setFilters((prevState) => ({
@@ -39,10 +69,14 @@ export function Filters() {
 
       <div className="filter_div">
         <label>Categoría</label>
+
         <select onChange={handleChangeCategory} value={filters.category}>
           <option value="all">Todo</option>
-          <option value="alimento">Alimentos</option>
-          <option value="charcuteria">Charcutería</option>
+          {categories.map((categoryName) => (
+            <option key={categoryName} value={categoryName}>
+              {categoryName.charAt(0).toUpperCase() + categoryName.slice(1)}
+            </option>
+          ))}
         </select>
       </div>
     </section>
