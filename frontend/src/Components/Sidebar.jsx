@@ -8,7 +8,7 @@ function Sidebar() {
       <summary id="tres-lineas">&#9776;</summary>
       <ul className="detalles-enlaces">
         <li>
-          <a href="el-caribeno">
+          <a href="https://elcaribeno.vercel.app">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               height="48px"

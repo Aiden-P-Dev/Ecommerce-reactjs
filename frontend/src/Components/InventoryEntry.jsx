@@ -20,8 +20,29 @@ function InventoryEntry({ onUpdate }) {
   const [quantity, setQuantity] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // 1. Cargar productos al inicio
   useEffect(() => {
     fetchProducts();
+
+    // 2. CONFIGURACIÓN DE TIEMPO REAL
+    // Escucha cualquier cambio (INSERT, UPDATE, DELETE) en la tabla 'productos'
+    const channel = supabase
+      .channel("cambios-inventario")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "productos" },
+        (payload) => {
+          console.log("Cambio detectado en tiempo real:", payload);
+          fetchProducts(); // Recarga la lista local automáticamente
+          if (onUpdate) onUpdate(); // Avisa a componentes padres si es necesario
+        },
+      )
+      .subscribe();
+
+    // Limpiar la suscripción cuando el componente se desmonte
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const fetchProducts = async () => {
@@ -43,18 +64,28 @@ function InventoryEntry({ onUpdate }) {
 
     if (product) {
       const nuevoStock = (parseInt(product.stock) || 0) + parseInt(quantity);
+
+      // Actualización optimista local para que se vea el cambio ANTES de que responda el server
+      setDbProducts((prev) =>
+        prev.map((p) =>
+          p.id == selectedProductId ? { ...p, stock: nuevoStock } : p,
+        ),
+      );
+
       const { error } = await supabase
         .from("productos")
         .update({ stock: nuevoStock })
         .eq("id", selectedProductId);
 
       if (!error) {
-        alert(`¡Stock actualizado! ${product.title}: ${nuevoStock}`);
+        // Limpiamos campos pero NO llamamos a fetchProducts() aquí
+        // porque el useEffect con Realtime ya lo hará por nosotros.
         setSearchTerm("");
         setSelectedProductId("");
         setQuantity("");
-        fetchProducts();
-        if (onUpdate) onUpdate();
+      } else {
+        alert("Error al actualizar: " + error.message);
+        fetchProducts(); // Revertir en caso de error
       }
     }
     setIsSubmitting(false);
@@ -64,7 +95,6 @@ function InventoryEntry({ onUpdate }) {
     p.title?.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
-  // Estilos de objetos para mayor control
   const styles = {
     container: {
       padding: "20px",
@@ -115,7 +145,6 @@ function InventoryEntry({ onUpdate }) {
 
       <form onSubmit={handleAddStock}>
         <div style={styles.flexRow}>
-          {/* BLOQUE 1 */}
           <div style={styles.column}>
             <label className="input-label-text">1. Buscar Producto</label>
             <input
@@ -149,7 +178,6 @@ function InventoryEntry({ onUpdate }) {
             </select>
           </div>
 
-          {/* BLOQUE 2 */}
           <div style={styles.column}>
             <label className="input-label-text">2. Cantidad a Sumar</label>
             <input

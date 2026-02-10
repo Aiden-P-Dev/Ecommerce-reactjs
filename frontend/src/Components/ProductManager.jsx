@@ -57,16 +57,18 @@ function ProductManager() {
   const [products, setProducts] = useState([]);
   const [tasaDolar, setTasaDolar] = useState(1);
   const [showTypeMenu, setShowTypeMenu] = useState(false);
-  const [showCatMenu, setShowCatMenu] = useState(false); // Nuevo: Menú de categorías
+  const [showCatMenu, setShowCatMenu] = useState(false);
   const [customType, setCustomType] = useState("");
-  const [customCat, setCustomCat] = useState(""); // Nuevo: Input para nueva categoría
+  const [customCat, setCustomCat] = useState("");
+  const [stockToAdd, setStockToAdd] = useState(0); // Nuevo estado para la suma de stock
+
   const formRef = useRef(null);
   const typeMenuRef = useRef(null);
   const catMenuRef = useRef(null);
 
   const opcionesBase = ["unidad", "litro", "docena", "gramo", "kg", "caja"];
   const [availableTypes, setAvailableTypes] = useState(opcionesBase);
-  const [availableCategories, setAvailableCategories] = useState([]); // Estado global de categorías
+  const [availableCategories, setAvailableCategories] = useState([]);
 
   const [currentProduct, setCurrentProduct] = useState({
     id: null,
@@ -94,11 +96,9 @@ function ProductManager() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Actualizar categorías y medidas disponibles basadas en los productos existentes
   useEffect(() => {
     const tiposEnDB = products.flatMap((p) => p.tipo || []);
     setAvailableTypes([...new Set([...opcionesBase, ...tiposEnDB])]);
-
     const catsEnDB = products.map((p) => p.category).filter(Boolean);
     setAvailableCategories([...new Set(catsEnDB)]);
   }, [products]);
@@ -162,11 +162,7 @@ function ProductManager() {
   };
 
   const removeCategoryGlobal = (cat) => {
-    if (
-      window.confirm(
-        `¿Eliminar la categoría "${cat}"? Los productos con esta categoría quedarán sin asignar.`,
-      )
-    ) {
+    if (window.confirm(`¿Eliminar la categoría "${cat}"?`)) {
       setAvailableCategories(availableCategories.filter((c) => c !== cat));
       if (currentProduct.category === cat)
         setCurrentProduct({ ...currentProduct, category: "" });
@@ -175,25 +171,44 @@ function ProductManager() {
 
   const handleSave = async (e) => {
     e.preventDefault();
+
+    // Calculamos el stock final: stock actual + lo que el usuario escribió en "Sumar al stock"
+    const finalStock =
+      (parseInt(currentProduct.stock) || 0) + (parseInt(stockToAdd) || 0);
+
     const payload = {
       title: currentProduct.title,
       category: currentProduct.category,
       thumbnail: currentProduct.thumbnail,
       price: parseFloat(currentProduct.price) || 0,
-      stock: parseInt(currentProduct.stock) || 0,
+      stock: finalStock,
       tipo: currentProduct.tipo,
     };
 
-    const { error } = currentProduct.id
+    // Actualización optimista: Reflejar cambios en la UI antes de recibir respuesta de DB
+    if (currentProduct.id) {
+      setProducts((prev) =>
+        prev.map((p) =>
+          p.id === currentProduct.id ? { ...p, ...payload } : p,
+        ),
+      );
+    }
+
+    const { data, error } = currentProduct.id
       ? await supabase
           .from("productos")
           .update(payload)
           .eq("id", currentProduct.id)
-      : await supabase.from("productos").insert([payload]);
+          .select()
+      : await supabase.from("productos").insert([payload]).select();
 
     if (!error) {
-      fetchProducts();
+      // Si fue una inserción (nuevo producto), actualizamos la lista completa para obtener el nuevo ID
+      if (!currentProduct.id) fetchProducts();
       resetForm();
+    } else {
+      alert("Error al guardar en la base de datos");
+      fetchProducts(); // Revertir cambios si hubo error
     }
   };
 
@@ -207,6 +222,7 @@ function ProductManager() {
       stock: 0,
       tipo: [],
     });
+    setStockToAdd(0);
     setShowTypeMenu(false);
     setShowCatMenu(false);
   };
@@ -243,7 +259,6 @@ function ProductManager() {
                 required
               />
 
-              {/* SECCIÓN CATEGORÍA MEJORADA */}
               <div
                 style={{ position: "relative", marginBottom: "15px" }}
                 ref={catMenuRef}
@@ -335,24 +350,40 @@ function ProductManager() {
                     required
                   />
                 </div>
+
+                {/* Lógica de Stock Mejorada */}
                 <div style={{ flex: 1 }}>
-                  <label className="input-label-text">Stock Disponible</label>
+                  <label className="input-label-text">Stock Actual</label>
                   <input
                     type="number"
                     className="form-input"
+                    style={{
+                      backgroundColor: "#f0f0f0",
+                      cursor: "not-allowed",
+                    }}
                     value={currentProduct.stock}
-                    onChange={(e) =>
-                      setCurrentProduct({
-                        ...currentProduct,
-                        stock: e.target.value,
-                      })
-                    }
-                    required
+                    readOnly
+                  />
+                </div>
+                <div style={{ flex: 1 }}>
+                  <label
+                    className="input-label-text"
+                    style={{ color: "#18a560", fontWeight: "bold" }}
+                  >
+                    {currentProduct.id ? "Sumar al Stock" : "Stock Inicial"}
+                  </label>
+                  <input
+                    type="number"
+                    className="form-input"
+                    style={{ borderColor: "#18a560" }}
+                    value={stockToAdd}
+                    onChange={(e) => setStockToAdd(e.target.value)}
+                    placeholder="Ej: 10"
+                    required={!currentProduct.id}
                   />
                 </div>
               </div>
 
-              {/* SECCIÓN FORMAS DE VENTA */}
               <div style={{ position: "relative" }} ref={typeMenuRef}>
                 <label className="input-label-text">Formas de Venta</label>
                 <button
@@ -515,6 +546,7 @@ function ProductManager() {
                 className="btn-action edit"
                 onClick={() => {
                   setCurrentProduct({ ...p });
+                  setStockToAdd(0); // Reiniciar el sumador al editar uno nuevo
                   formRef.current.scrollIntoView({ behavior: "smooth" });
                 }}
               >
@@ -524,8 +556,11 @@ function ProductManager() {
                 className="btn-action delete"
                 onClick={async () => {
                   if (window.confirm("¿Eliminar?")) {
+                    // Borrado optimista
+                    setProducts((prev) =>
+                      prev.filter((item) => item.id !== p.id),
+                    );
                     await supabase.from("productos").delete().eq("id", p.id);
-                    fetchProducts();
                   }
                 }}
               >

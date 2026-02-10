@@ -14,8 +14,9 @@ export const Signup = () => {
   const { signup, isAuthenticated, errors: registerErrors } = useAuth();
   const navigate = useNavigate();
 
-  // Estado para mostrar/ocultar contraseña
   const [showPassword, setShowPassword] = useState(false);
+
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -23,8 +24,14 @@ export const Signup = () => {
     }
   }, [isAuthenticated, navigate]);
 
-  const onSubmit = handleSubmit((values) => {
-    signup(values);
+  const onSubmit = handleSubmit(async (values) => {
+    const res = await signup(values);
+
+    if (!registerErrors || registerErrors.length === 0) {
+      setShowSuccessMessage(true);
+
+      setTimeout(() => setShowSuccessMessage(false), 25000);
+    }
   });
 
   const togglePasswordVisibility = () => {
@@ -36,6 +43,14 @@ export const Signup = () => {
       <h1 className="signup-title">Sign Up</h1>
 
       <form className="form" onSubmit={onSubmit}>
+        {showSuccessMessage && (
+          <div className="success-banner">
+            Registro exitoso. Por favor, revise su correo para confirmar su
+            cuenta. de seguir presionando el botón por segunda vez tendra que
+            esperar 300s para volver a intentarlo
+          </div>
+        )}
+
         {registerErrors.map((error, i) => (
           <div className="error-banner" key={i}>
             {error}
