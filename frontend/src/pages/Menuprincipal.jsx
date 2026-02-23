@@ -2,11 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import imagen1 from "./Img/Avatar.png";
-import { Logosvg } from "../Components/Icons";
+
 export const Menuprincipal = () => {
   const { user, isAuthenticated, logout } = useAuth();
 
+  // Definimos si es administrador o un cliente normal
   const isAdmin = isAuthenticated && user?.email === "admin@admin.com";
+  const isClient = isAuthenticated && !isAdmin;
 
   return (
     <div className="el-caribeno" id="el-caribeno">
@@ -32,6 +34,7 @@ export const Menuprincipal = () => {
                 <a href="#services">Servicios</a>
               </li>
 
+              {/* MÓDULO PARA ADMINISTRADOR */}
               {isAdmin && (
                 <li>
                   <Link to="/admin-panel" className="btnAdmin">
@@ -40,6 +43,16 @@ export const Menuprincipal = () => {
                 </li>
               )}
 
+              {/* MÓDULO PARA CLIENTES (Solo aparece si están logueados y no son admin) */}
+              {isClient && (
+                <li>
+                  <Link to="/profile" className="btn">
+                    Mi Perfil
+                  </Link>
+                </li>
+              )}
+
+              {/* LÓGICA DE BOTONES DE ACCESO / SALIDA */}
               {!isAuthenticated ? (
                 <>
                   <li>
@@ -74,7 +87,11 @@ export const Menuprincipal = () => {
           </div>
           <div className="hero-content">
             <h2>Bienvenido a El Caribeño</h2>
-            <p>Tu Tienda de Confianza</p>
+            <p>
+              {isAuthenticated
+                ? `Hola de nuevo, ${user?.username || "Cliente"}`
+                : "Tu Tienda de Confianza"}
+            </p>
             <Link to="/products" className="btn">
               Comenzar Búsqueda
             </Link>
@@ -115,7 +132,7 @@ export const Menuprincipal = () => {
                     <g fill="none">
                       <path
                         stroke="currentColor"
-                        stroke-width="1.5"
+                        strokeWidth="1.5"
                         d="M7.5 18a1.5 1.5 0 1 1 0 3a1.5 1.5 0 0 1 0-3Zm9 0a1.5 1.5 0 1 1 0 3a1.5 1.5 0 0 1 0-3Z"
                         opacity=".5"
                       />
@@ -125,8 +142,8 @@ export const Menuprincipal = () => {
                       />
                       <path
                         stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-width="1.5"
+                        strokeLinecap="round"
+                        strokeWidth="1.5"
                         d="M16.5 6.5L15 15M9 6.5l1.5 8.5"
                         opacity=".5"
                       />
@@ -189,14 +206,14 @@ export const Menuprincipal = () => {
                       cx="33.15"
                       cy="59.818"
                       fill="#bac4c9"
-                      fill-opacity=".628"
+                      fillOpacity=".628"
                       opacity=".7"
                       rx="15.539"
                       ry="4.181"
                     />
                     <path
                       fill="#bac4c9"
-                      fill-opacity=".627"
+                      fillOpacity=".627"
                       d="M33.2.094a16.674 7.633 0 0 0-16.057 5.611a16.674 7.633 0 0 0-.002.004c-.473.485-.696 1.449-.696 3.121c0 7.653-7.543 26.675 16.705 28.44c24.11-1.494 16.705-20.783 16.705-28.44c0-.256-.018-.454-.029-.678a16.674 7.633 0 0 0 .047-.423A16.674 7.633 0 0 0 33.199.094"
                       opacity=".7"
                     />
@@ -206,7 +223,7 @@ export const Menuprincipal = () => {
                     />
                     <path
                       fill="#bac4c9"
-                      fill-opacity=".627"
+                      fillOpacity=".627"
                       d="M34.608 58.642c0 .646-.601 1.174-1.346 1.174s-1.345-.527-1.345-1.174v-22.15c0-.647.601-1.174 1.346-1.174s1.346.527 1.346 1.174v22.15"
                       opacity=".7"
                     />

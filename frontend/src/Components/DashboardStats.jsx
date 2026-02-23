@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient.js";
 import "./DashboardStats.css";
 import TasaDolar from "./TasaDolar.jsx";
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
 
 function DashboardStats() {
   const [stats, setStats] = useState({
@@ -11,10 +13,15 @@ function DashboardStats() {
     lowStockItems: [],
     totalValueUsd: 0,
     totalValueBs: 0,
+    totalExpectedProfit: 0,
     categoryDistribution: {},
+    historyByDate: {},
   });
   const [loading, setLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const [showLowStockModal, setShowLowStockModal] = useState(false);
+  const [showProfitModal, setShowProfitModal] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetchStats();
@@ -33,7 +40,7 @@ function DashboardStats() {
 
       const { data: prodData, error } = await supabase
         .from("productos")
-        .select("title, price, stock, category");
+        .select("title, price, buy_price, stock, category, date");
 
       if (error) throw error;
 
@@ -49,11 +56,28 @@ function DashboardStats() {
             }
 
             const itemValueUsd = (item.price || 0) * (item.stock || 0);
+            const itemCostUsd = (item.buy_price || 0) * (item.stock || 0);
+            const itemProfit = itemValueUsd - itemCostUsd;
+
             acc.totalValueUsd += itemValueUsd;
+            acc.totalExpectedProfit += itemProfit;
 
             const cat = item.category || "Sin categoría";
             acc.categoryDistribution[cat] =
               (acc.categoryDistribution[cat] || 0) + 1;
+
+            const fecha = item.date || "Sin Fecha";
+            if (!acc.historyByDate[fecha]) {
+              acc.historyByDate[fecha] = { items: [], dailyProfit: 0 };
+            }
+            acc.historyByDate[fecha].items.push({
+              title: item.title,
+              profit: itemProfit,
+              stock: item.stock,
+              buy_price: item.buy_price || 0,
+              price: item.price || 0,
+            });
+            acc.historyByDate[fecha].dailyProfit += itemProfit;
 
             return acc;
           },
@@ -63,14 +87,18 @@ function DashboardStats() {
             lowStockCount: 0,
             lowStockItems: [],
             totalValueUsd: 0,
+            totalExpectedProfit: 0,
             categoryDistribution: {},
+            historyByDate: {},
           },
         );
 
+        const sortedDates = Object.keys(summary.historyByDate).sort().reverse();
         setStats({
           ...summary,
           totalValueBs: summary.totalValueUsd * tasaActual,
         });
+        if (sortedDates.length > 0) setSelectedDate(sortedDates[0]);
       }
     } catch (err) {
       console.error("Error cargando estadísticas:", err);
@@ -79,24 +107,89 @@ function DashboardStats() {
     }
   };
 
+  const deleteHistoryByDate = async (fecha) => {
+    if (
+      !window.confirm(
+        `¿Estás seguro de eliminar todos los registros del ${fecha}? Esta acción no se puede deshacer.`,
+      )
+    )
+      return;
+
+    try {
+      const { error } = await supabase
+        .from("productos")
+        .delete()
+        .eq("date", fecha);
+
+      if (error) throw error;
+
+      alert("Registros eliminados correctamente");
+      fetchStats(); // Recargar datos
+    } catch (err) {
+      alert("Error al eliminar registros");
+      console.error(err);
+    }
+  };
+
+  const exportPDF = (fecha) => {
+    const doc = new jsPDF();
+    const data = stats.historyByDate[fecha];
+    doc.setFontSize(18);
+    doc.text(`Reporte de Ganancias - ${fecha}`, 14, 20);
+    doc.setFontSize(12);
+    doc.setTextColor(100);
+    doc.text(
+      `Ganancia Total Proyectada: $${data.dailyProfit.toFixed(2)}`,
+      14,
+      30,
+    );
+
+    const tableRows = data.items.map((item) => [
+      item.title,
+      item.stock,
+      `$${item.buy_price.toFixed(2)}`,
+      `$${item.price.toFixed(2)}`,
+      `$${item.profit.toFixed(2)}`,
+    ]);
+
+    autoTable(doc, {
+      startY: 35,
+      head: [["Producto", "Stock", "Costo", "Venta", "Ganancia Total"]],
+      body: tableRows,
+      theme: "grid",
+      headStyles: { fillColor: [46, 204, 113] },
+    });
+    doc.save(`Reporte_Inventario_${fecha}.pdf`);
+  };
+
+  const filteredItems =
+    selectedDate && stats.historyByDate[selectedDate]
+      ? stats.historyByDate[selectedDate].items.filter((item) =>
+          item.title.toLowerCase().includes(searchTerm.toLowerCase()),
+        )
+      : [];
+
   if (loading)
-    return <div className="loading-stats">Analizando inventario...</div>;
+    return <div className="loading-stats">Cargando datos financieros...</div>;
 
   return (
-    <div className="dashboard-container" id="dashboard-container">
-      <h2 className="Title-list">Resumen de Negocio</h2>
+    <div className="dashboard-container">
+      <div className="dashboard-header-flex">
+        <h2 className="Title-list">Panel de Control Financiero</h2>
+        <TasaDolar />
+      </div>
 
       <div className="stats-grid">
+        {/* CAPITAL */}
         <div className="stat-card total-value">
-          <div className="stat-icon-wrapper">
+          <div className="stat-icon-wrapper blue-bg">
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="32px"
-              viewBox="0 -960 960 960"
-              width="32px"
-              fill="#2ecc71"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#3498db"
+              strokeWidth="2"
             >
-              <path d="M441-120v-86q-53-12-91.5-46T293-332l74-30q15 35 44 58.5t70 23.5q40 0 65.5-19t25.5-51q0-31-21-50.5T461-454q-75-24-111-62t-36-96q0-58 37.5-98.5T441-754v-86h80v86q48 12 79 41.5t45 74.5l-72 32q-13-28-34-44.5T488-702q-35 0-56 17t-21 43q0 25 18 41t80 35q74 25 107.5 61.5T650-349q0 70-43 113t-86 43v83h-80Z" />
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
             </svg>
           </div>
           <div className="stat-content">
@@ -116,71 +209,212 @@ function DashboardStats() {
           </div>
         </div>
 
-        <div className="stat-card total-items">
-          <div className="stat-icon-wrapper">
+        {/* GANANCIAS */}
+        <div
+          className="stat-card profit-value clickable"
+          onClick={() => setShowProfitModal(true)}
+        >
+          <div className="stat-icon-wrapper green-bg">
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="32px"
-              viewBox="0 -960 960 960"
-              width="32px"
-              fill="#3498db"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#18a560"
+              strokeWidth="2"
             >
-              <path d="m480-120-271-151q-15-8-23-22.5t-8-29.5v-314q0-15 8-29.5t23-22.5l271-151q15-8 30-8t30 8l271 151q15 8 23 22.5t8 29.5v314q0 15-8 29.5T751-271L480-120Zm0-362 216-121-216-121-216 121 216 121ZM240-543v205l180 100v-205L240-543Zm300 305 180-100v-205L540-443v205Z" />
+              <path d="M23 6l-9.5 9.5-5-5L1 18M17 6h6v6" />
             </svg>
           </div>
           <div className="stat-content">
-            <label>Variedad</label>
-            <div className="stat-number">{stats.totalProducts}</div>
-            <p className="stat-desc">Productos únicos</p>
+            <label>Ganancia Proyectada</label>
+            <div className="stat-number green-text">
+              $
+              {stats.totalExpectedProfit.toLocaleString("en-US", {
+                minimumFractionDigits: 2,
+              })}
+            </div>
+            <p className="stat-desc">Ver historial por fechas →</p>
           </div>
         </div>
 
+        {/* CRÍTICOS */}
         <div
           className="stat-card low-stock clickable"
-          onClick={() => setShowModal(true)}
+          onClick={() => setShowLowStockModal(true)}
         >
-          <div className="stat-icon-wrapper">
+          <div className="stat-icon-wrapper red-bg">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              height="32px"
+              height="48px"
               viewBox="0 -960 960 960"
-              width="32px"
-              fill="#e74c3c"
+              width="48px"
+              fill="none"
+              stroke="#e74c3c"
+              strokeWidth="4"
             >
-              <path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" />
+              <path d="M450-380v-380h60v380h-60Zm0 180v-60h60v60h-60ZM223-40H100q-24 0-42-18t-18-42v-123h60v123h123v60Zm514 0v-60h123v-123h60v123q0 24-18 42t-42 18H737ZM40-737v-123q0-24 18-42t42-18h123v60H100v123H40Zm820 0v-123H737v-60h123q24 0 42 18t18 42v123h-60Z" />
             </svg>
           </div>
           <div className="stat-content">
-            <label>Críticos</label>
-            <div className="stat-number">{stats.lowStockCount}</div>
-            <p className="stat-desc">Ver detalle de faltantes →</p>
+            <label>Productos Críticos</label>
+            <div className="stat-number red-text">{stats.lowStockCount}</div>
+            <p className="stat-desc">Revisar stock bajo →</p>
           </div>
         </div>
       </div>
 
-      <div className="secondary-stats-layout">
-        <div className="category-panel">
-          <div className="category-header">
+      <div className="category-panel">
+        <div className="category-header">
+          <div className="header-info">
             <h3>Distribución por Categoría</h3>
-            <TasaDolar />
+            <p className="variety-counter">
+              Variedad: <b>{stats.totalProducts}</b> productos únicos
+            </p>
           </div>
-          <div className="category-grid">
-            {Object.entries(stats.categoryDistribution).map(([cat, count]) => (
-              <div key={cat} className="category-badge">
-                <span className="cat-text">{cat}</span>
-                <span className="cat-count-pill">{count}</span>
-              </div>
-            ))}
-          </div>
+        </div>
+        <div className="category-grid">
+          {Object.entries(stats.categoryDistribution).map(([cat, count]) => (
+            <div key={cat} className="category-badge">
+              <span className="cat-text">{cat}</span>
+              <span className="cat-count-pill">{count}</span>
+            </div>
+          ))}
         </div>
       </div>
 
-      {showModal && (
-        <div className="modal-overlay" onClick={() => setShowModal(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      {/* MODAL DE GANANCIAS */}
+      {showProfitModal && (
+        <div
+          className="modal-overlay"
+          onClick={() => setShowProfitModal(false)}
+        >
+          <div
+            className="modal-content profit-modal-wide"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="modal-header">
-              <h3>Productos con Bajo Stock</h3>
-              <button className="close-btn" onClick={() => setShowModal(false)}>
+              <h3>Historial de Productos y Ganancias</h3>
+              <button
+                className="close-btn"
+                onClick={() => setShowProfitModal(false)}
+              >
+                &times;
+              </button>
+            </div>
+
+            <div className="profit-modal-body">
+              <div className="date-sidebar">
+                {Object.keys(stats.historyByDate)
+                  .sort()
+                  .reverse()
+                  .map((fecha) => (
+                    <div
+                      key={fecha}
+                      className={`date-tab-container ${selectedDate === fecha ? "active" : ""}`}
+                    >
+                      <button
+                        className="date-tab-btn"
+                        onClick={() => {
+                          setSelectedDate(fecha);
+                          setSearchTerm("");
+                        }}
+                      >
+                        <span className="date-label">{fecha}</span>
+                        <span className="date-profit">
+                          ${stats.historyByDate[fecha].dailyProfit.toFixed(2)}
+                        </span>
+                      </button>
+                      <button
+                        className="delete-date-btn"
+                        onClick={() => deleteHistoryByDate(fecha)}
+                        title="Eliminar registros de esta fecha"
+                      >
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                        >
+                          <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+              </div>
+
+              <div className="date-detail-content">
+                <div className="detail-controls">
+                  <input
+                    type="text"
+                    placeholder="Buscar producto..."
+                    className="search-input-modal"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                  />
+                  <button
+                    className="export-btn"
+                    onClick={() => exportPDF(selectedDate)}
+                  >
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      style={{ marginRight: "8px" }}
+                    >
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                      <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" />
+                    </svg>
+                    Exportar PDF
+                  </button>
+                </div>
+
+                <div className="table-container">
+                  <table className="low-stock-table">
+                    <thead>
+                      <tr>
+                        <th>Producto</th>
+                        <th>Stock</th>
+                        <th>Costo</th>
+                        <th>Venta</th>
+                        <th>Gcia Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredItems.map((item, idx) => (
+                        <tr key={idx}>
+                          <td>{item.title}</td>
+                          <td>{item.stock}</td>
+                          <td>${item.buy_price.toFixed(2)}</td>
+                          <td>${item.price.toFixed(2)}</td>
+                          <td className="green-text bold">
+                            +${item.profit.toFixed(2)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL STOCK BAJO */}
+      {showLowStockModal && (
+        <div
+          className="modal-overlay"
+          onClick={() => setShowLowStockModal(false)}
+        >
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header alert">
+              <h3>🚨 Reposición de Inventario</h3>
+              <button
+                className="close-btn"
+                onClick={() => setShowLowStockModal(false)}
+              >
                 &times;
               </button>
             </div>
@@ -190,25 +424,19 @@ function DashboardStats() {
                   <tr>
                     <th>Producto</th>
                     <th>Categoría</th>
-                    <th>Stock Actual</th>
+                    <th>Stock</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {stats.lowStockItems.length > 0 ? (
-                    stats.lowStockItems.map((item, i) => (
-                      <tr key={i}>
-                        <td>{item.title}</td>
-                        <td>
-                          <span className="td-badge">{item.category}</span>
-                        </td>
-                        <td className="td-stock">{item.stock}</td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan="3">No hay productos críticos</td>
+                  {stats.lowStockItems.map((item, i) => (
+                    <tr key={i}>
+                      <td>{item.title}</td>
+                      <td>
+                        <span className="td-badge">{item.category}</span>
+                      </td>
+                      <td className="red-text bold">{item.stock}</td>
                     </tr>
-                  )}
+                  ))}
                 </tbody>
               </table>
             </div>

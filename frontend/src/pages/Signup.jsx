@@ -15,7 +15,6 @@ export const Signup = () => {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
-
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   useEffect(() => {
@@ -25,11 +24,13 @@ export const Signup = () => {
   }, [isAuthenticated, navigate]);
 
   const onSubmit = handleSubmit(async (values) => {
-    const res = await signup(values);
+    // values contiene email, password y username.
+    // AuthContext usará values.username para los metadatos de Supabase.
+    await signup(values);
 
     if (!registerErrors || registerErrors.length === 0) {
       setShowSuccessMessage(true);
-
+      // Opcional: ocultar el mensaje después de un tiempo largo
       setTimeout(() => setShowSuccessMessage(false), 25000);
     }
   });
@@ -46,16 +47,17 @@ export const Signup = () => {
         {showSuccessMessage && (
           <div className="success-banner">
             Registro exitoso. Por favor, revise su correo para confirmar su
-            cuenta. de seguir presionando el botón por segunda vez tendra que
-            esperar 300s para volver a intentarlo
+            cuenta. De seguir presionando el botón por segunda vez tendrá que
+            esperar 300s para volver a intentarlo.
           </div>
         )}
 
-        {registerErrors.map((error, i) => (
-          <div className="error-banner" key={i}>
-            {error}
-          </div>
-        ))}
+        {registerErrors &&
+          registerErrors.map((error, i) => (
+            <div className="error-banner" key={i}>
+              {error}
+            </div>
+          ))}
 
         <div className="input-container">
           <label className="label" htmlFor="username">
@@ -64,8 +66,14 @@ export const Signup = () => {
           <input
             type="text"
             id="username"
-            placeholder="Tu nombre"
-            {...register("username", { required: "El nombre es requerido" })}
+            placeholder="Ej: Nombre Apellido"
+            {...register("username", {
+              required: "El nombre es requerido",
+              minLength: {
+                value: 3,
+                message: "El nombre debe tener al menos 3 caracteres",
+              },
+            })}
             className="input-field"
           />
           {errors.username && (
@@ -81,7 +89,13 @@ export const Signup = () => {
             type="email"
             id="email"
             placeholder="email@ejemplo.com"
-            {...register("email", { required: "El correo es requerido" })}
+            {...register("email", {
+              required: "El correo es requerido",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Dirección de correo inválida",
+              },
+            })}
             className="input-field"
           />
           {errors.email && (
@@ -108,12 +122,8 @@ export const Signup = () => {
               type="button"
               className="toggle-password"
               onClick={togglePasswordVisibility}
-              aria-label={
-                showPassword ? "Ocultar contraseña" : "Mostrar contraseña"
-              }
             >
               {showPassword ? (
-                /* SVG Ojo Tachado (Hide) */
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   height="24px"
@@ -124,7 +134,6 @@ export const Signup = () => {
                   <path d="m629-419-44-44q26-71-27-118t-115-24l-44-44q17-11 38-16t43-5q71 0 120.5 49.5T650-500q0 22-5.5 43.5T629-419Zm129 129-40-40q49-36 85.5-80.5T857-500q-50-111-150-175.5T490-740q-42 0-86 8t-69 19l-46-47q35-16 89.5-28T485-800q143 0 261.5 81.5T920-500q-26 64-67 117t-95 93Zm58 226L648-229q-35 14-79 21.5t-89 7.5q-146 0-265-81.5T40-500q20-52 55.5-101.5T182-696L56-822l42-43 757 757-39 44ZM223-654q-37 27-71.5 71T102-500q51 111 153.5 175.5T488-260q33 0 65-4t48-12l-64-64q-11 5-27 7.5t-30 2.5q-70 0-120-49t-50-121q0-15 2.5-30t7.5-27l-97-97Zm305 142Zm-116 58Z" />
                 </svg>
               ) : (
-                /* SVG Ojo (Show) */
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   height="24px"

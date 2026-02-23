@@ -6,6 +6,7 @@ export const CART_ACTION_TYPES = {
   REMOVE_FROM_CART: "REMOVE_FROM_CART",
   CLEAR_CART: "CLEAR_CART",
   UPDATE_CART_ITEM: "UPDATE_CART_ITEM",
+  REMOVE_ITEM_COMPLETELY: "REMOVE_ITEM_COMPLETELY", // 1. Agregamos el tipo de acción
 };
 
 const updateLocalStorage = (state) => {
@@ -65,6 +66,14 @@ const UPDATE_STATE_BY_ACTION = {
     } else {
       newState.splice(itemIndex, 1);
     }
+    updateLocalStorage(newState);
+    return newState;
+  },
+
+  // 2. Agregamos la lógica para eliminar el producto sin importar la cantidad
+  [CART_ACTION_TYPES.REMOVE_ITEM_COMPLETELY]: (state, action) => {
+    const { id } = action.payload;
+    const newState = state.filter((item) => item.id !== id);
     updateLocalStorage(newState);
     return newState;
   },

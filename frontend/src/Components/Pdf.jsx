@@ -1,3 +1,4 @@
+import React from "react";
 import { Document, Page, View, Text, StyleSheet } from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({
@@ -45,9 +46,21 @@ const styles = StyleSheet.create({
   },
   totalDolar: { fontSize: 18, color: "#18a560", fontWeight: "bold" },
   totalBs: { fontSize: 14, fontWeight: "bold" },
+  // Contenedor para forzar espacios
+  usuarioContenedor: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    marginTop: 2,
+  },
+  usuarioInfo: {
+    fontSize: 11,
+    color: "#000",
+    fontWeight: "bold",
+    marginRight: 4, // Espacio físico real entre palabras
+  },
 });
 
-const Pdf = ({ cart = [], tasaDolar = 0 }) => {
+const Pdf = ({ cart = [], tasaDolar = 0, userName = "Cliente" }) => {
   const shortCode = Math.floor(1000 + Math.random() * 9000);
   const totalDolar = cart.reduce(
     (acc, item) => acc + item.price * item.quantity,
@@ -58,6 +71,20 @@ const Pdf = ({ cart = [], tasaDolar = 0 }) => {
   });
   const fecha = new Date().toLocaleString();
 
+  // Función de limpieza profunda
+  const getWords = (text) => {
+    if (!text) return ["Cliente"];
+    let n = text.includes("@") ? text.split("@")[0] : text;
+    // Separar por puntos, guiones y CamelCase, luego limpiar
+    n = n.replace(/([a-z])([A-Z])/g, "$1 $2").replace(/[._-]/g, " ");
+    return n
+      .trim()
+      .split(/\s+/)
+      .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase());
+  };
+
+  const palabrasNombre = getWords(userName);
+
   return (
     <Document title={`Pedido_${shortCode}`}>
       <Page size="A4" style={styles.pagina}>
@@ -65,6 +92,18 @@ const Pdf = ({ cart = [], tasaDolar = 0 }) => {
           <Text style={styles.tituloBanner}>El Caribeño</Text>
           <Text style={{ fontSize: 12 }}>Pedido #{shortCode}</Text>
           <Text style={{ fontSize: 8 }}>Generado: {fecha}</Text>
+        </View>
+
+        <View style={{ marginBottom: 15, paddingLeft: 5 }}>
+          <Text style={{ fontSize: 9, color: "#777" }}>VENDEDOR:</Text>
+          {/* RENDERIZADO PALABRA POR PALABRA PARA FORZAR ESPACIOS */}
+          <View style={styles.usuarioContenedor}>
+            {palabrasNombre.map((palabra, index) => (
+              <Text key={index} style={styles.usuarioInfo}>
+                {palabra}
+              </Text>
+            ))}
+          </View>
         </View>
 
         <View style={styles.resumenGris}>
@@ -88,7 +127,6 @@ const Pdf = ({ cart = [], tasaDolar = 0 }) => {
             "de-DE",
             { minimumFractionDigits: 2 },
           );
-
           return (
             <View key={p.id} style={styles.productoRow}>
               <View style={styles.colInfo}>

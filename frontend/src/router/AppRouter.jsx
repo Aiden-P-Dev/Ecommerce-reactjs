@@ -4,6 +4,8 @@ import { Menuprincipal } from "../pages/Menuprincipal.jsx";
 import { ProductPage } from "../pages/ProductPage.jsx";
 import { Login } from "../pages/Login.jsx";
 import { Signup } from "../pages/Signup.jsx";
+import { UserProfile } from "../pages/UserProfile.jsx";
+import { AdminOrders } from "../pages/AdminOrders.jsx";
 
 import PrivateRoute from "./PrivateRoute.jsx";
 import Prueba from "../pages/Prueba.jsx";
@@ -17,11 +19,12 @@ export const AppRouter = () => {
 
       <Route element={<PrivateRoute />}>
         <Route path="/products" element={<ProductPage />} />
+        <Route path="/profile" element={<UserProfile />} />{" "}
       </Route>
 
-      <Route element={<Prueba />}>
-        <Route path="/admin-panel" element={<Prueba />} />
-      </Route>
+      <Route path="/admin-panel" element={<Prueba />} />
+
+      <Route path="/prueba" element={<Prueba />} />
 
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

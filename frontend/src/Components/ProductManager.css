@@ -409,3 +409,13 @@
   padding: 2px 6px;
   border-radius: 4px;
 }
+
+.card-header-meta {
+  display: flex;
+  gap: 20px;
+  color: #fff;
+}
+
+.price-row {
+  color: #888;
+}

@@ -28,14 +28,34 @@ function useCartReducer() {
       payload: { id, updates },
     });
 
+  // NUEVA FUNCIÓN: Envía la orden al reducer para eliminar por completo
+  const removeItemCompletely = (product) =>
+    dispatch({
+      type: CART_ACTION_TYPES.REMOVE_ITEM_COMPLETELY,
+      payload: product,
+    });
+
   const clearCart = () => dispatch({ type: CART_ACTION_TYPES.CLEAR_CART });
 
-  return { state, addToCart, removeFromCart, updateCartItem, clearCart };
+  return {
+    state,
+    addToCart,
+    removeFromCart,
+    updateCartItem,
+    clearCart,
+    removeItemCompletely, // <-- Retornamos la nueva función
+  };
 }
 
 export function CartProvider({ children }) {
-  const { state, addToCart, removeFromCart, updateCartItem, clearCart } =
-    useCartReducer();
+  const {
+    state,
+    addToCart,
+    removeFromCart,
+    updateCartItem,
+    clearCart,
+    removeItemCompletely,
+  } = useCartReducer();
 
   return (
     <CartContext.Provider
@@ -45,6 +65,7 @@ export function CartProvider({ children }) {
         removeFromCart,
         updateCartItem,
         clearCart,
+        removeItemCompletely, // <-- LA EXPORTAMOS AL CONTEXTO
       }}
     >
       {children}

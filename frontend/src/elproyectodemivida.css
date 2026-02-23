@@ -113,7 +113,7 @@ body {
   }
 
   .Titulo-Caribeño {
-    width: clamp(178px, 14rem, 262px);
+    width: clamp(178px, 14rem, 17%);
     height: 100px;
     & text {
       stroke: #000;
@@ -121,7 +121,7 @@ body {
       stroke-dasharray: 200;
       stroke-dashoffset: 200;
       fill: #fff0;
-      font-size: clamp(2rem, 4dvw, 120px);
+      font-size: clamp(2rem, 2.5dvw, 120px);
       font-family: Arial, Helvetica, sans-serif;
       animation: 4s dibujo forwards;
     }
@@ -1406,66 +1406,68 @@ ul {
 }
 
 /* --- BLOQUE SELECT UNIFICADO --- */
+svg {
+  width: 20px;
+  height: 20px;
+}
+
 select {
-  /* Colores y bordes */
-  background-color: light-dark(#2ecc71, rgba(192, 160, 104));
-  color: #fefefe;
-  border-radius: 25px;
-  border: none;
+  font: inherit;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fff;
+  justify-content: space-between;
+  min-inline-size: 14ch;
 
-  /* Tipografía y alineación */
-  text-align: center;
-  font-size: x-large;
-  cursor: pointer;
+  &,
+  &::picker(select) {
+    appearance: base-select;
+    padding: 1rem;
+    border: none;
+    border-radius: 1rem;
+    background: #222;
+    line-height: 1.6;
+  }
 
-  /* Dimensiones */
-  width: clamp(125px, 175px, 180px);
-  height: 35px;
-  margin: 0 0 15px 0;
+  &::picker(select) {
+    margin-block-start: 0.5rem;
+  }
 
-  /* Posicionamiento Grid (según tu código) */
-  display: grid;
-  grid-area: 1 / 2 / 2 / 3;
-  justify-content: center;
-  justify-items: center;
+  &::picker-icon {
+    display: none;
+  }
 
-  /* Reset nativo para que el border-radius NO se quite al hacer click */
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  outline: none;
-}
+  .picker {
+    transition: rotate 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-/* Forzar el mantenimiento del estilo en estados activos */
-select:focus,
-select:hover,
-select:active {
-  border-radius: 25px;
-  outline: none;
-  box-shadow: none;
-  border: none;
-}
+    :open & {
+      rotate: 90deg;
+    }
+  }
 
-/* --- ESTILOS DE LAS OPCIONES --- */
-select option {
-  background-color: light-dark(#2ecc71, rgba(192, 160, 104));
-  color: white;
-  font-size: 18px;
-  text-align: center;
-}
+  selectedcontent > * {
+    transition:
+      translate 1s,
+      opacity 1s;
 
-/* Tu diseño de gradiente para la segunda opción */
-select option:nth-child(2) {
-  width: 125px;
-  background:
-    linear-gradient(90deg, rgba(200, 0, 0, 0.5) 50%, transparent 50%),
-    linear-gradient(rgba(200, 0, 0, 0.5) 50%, transparent 50%);
-  background-size: 50px 50px;
-}
+    @starting-style {
+      opacity: 0;
+      translate: 0% 100%;
+    }
+  }
 
-/* Ancho dinámico para la tercera opción activa */
-select option:active:nth-child(3) {
-  width: 175px;
+  option {
+    color: #fff;
+
+    &::checkmark {
+      content: "";
+      width: 10px;
+      aspect-ratio: 1;
+      background: var(--Header-gradient);
+    }
+  }
 }
 
 /* --- RESPONSIVE --- */

@@ -9,6 +9,7 @@ import Sidebar from "../Components/Sidebar.jsx";
 import UserManager from "../Components/UserManager.jsx";
 import InventoryEntry from "../Components/InventoryEntry.jsx";
 import DashboardStats from "../Components/DashboardStats.jsx";
+import { AdminOrders } from "./AdminOrders.jsx";
 import "./prueba.css";
 
 function Prueba() {
@@ -22,6 +23,7 @@ function Prueba() {
         {/* <ProductListFromJson></ProductListFromJson> */}
         <ProductManager></ProductManager>
         <UserManager></UserManager>
+        <AdminOrders></AdminOrders>
       </div>
     </>
   );
